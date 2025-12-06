@@ -1,0 +1,1142 @@
+/* Global reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Base look: flat Windows-like background */
+
+.cad-body {
+  height: 100%;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  background: #c8cdd9;
+  color: #222;
+}
+
+/* Full window shell (fills viewport, like full-screen Inventor) */
+
+.cad-window {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f1f3f8;
+}
+
+/* TITLE BAR */
+
+.cad-titlebar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 6px;
+  background: linear-gradient(to bottom, #f7f7f9, #d6d8e1);
+  border-bottom: 1px solid #b5b9c7;
+  font-size: 11px;
+  color: #222;
+}
+
+.cad-titlebar-left,
+.cad-titlebar-center,
+.cad-titlebar-right {
+  display: flex;
+  align-items: center;
+}
+
+.cad-titlebar-left {
+  gap: 6px;
+}
+
+.cad-titlebar-center {
+  flex: 1;
+  justify-content: center;
+  gap: 6px;
+  color: #34384a;
+}
+
+.cad-titlebar-right {
+  gap: 2px;
+}
+
+/* App icon + quick access */
+
+.cad-app-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #e8eaf0, #c5cad9);
+  border: 1px solid #a8afc4;
+  color: #4a5068;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.15);
+  cursor: pointer;
+}
+
+.cad-app-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.cad-quick-access {
+  display: flex;
+  gap: 2px;
+}
+
+.cad-qa-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  border: 1px solid #c1c5d3;
+  background: linear-gradient(to bottom, #fdfefe, #e1e4ef);
+  padding: 0;
+}
+
+/* Document info */
+
+.cad-doc-info {
+  padding-left: 4px;
+  border-left: 1px solid #c2c6d4;
+}
+
+.cad-doc-name {
+  font-weight: 500;
+}
+
+/* Titlebar center */
+
+.cad-env-name {
+  font-weight: 500;
+}
+
+.cad-doc-path-separator {
+  opacity: 0.6;
+}
+
+.cad-app-name {
+  opacity: 0.85;
+}
+
+/* Window buttons */
+
+.cad-window-btn {
+  width: 36px;
+  height: 20px;
+  border-radius: 2px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.cad-window-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.cad-window-btn:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Fullscreen button - 4 arrows pointing out (expand) */
+.cad-window-btn-max::before,
+.cad-window-btn-max::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #4b4f5c;
+  border-right: none;
+  border-bottom: none;
+}
+
+.cad-window-btn-max::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.cad-window-btn-max::after {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+/* Arrow tips for expand icon */
+.cad-window-btn-max {
+  --arrow-color: #4b4f5c;
+}
+
+/* Create corner arrows using gradients and box-shadow */
+.cad-window-btn-max::before {
+  box-shadow:
+    -3px -3px 0 0 var(--arrow-color),
+    -2px -3px 0 0 var(--arrow-color),
+    -3px -2px 0 0 var(--arrow-color);
+}
+
+.cad-window-btn-max::after {
+  box-shadow:
+    3px 3px 0 0 var(--arrow-color),
+    2px 3px 0 0 var(--arrow-color),
+    3px 2px 0 0 var(--arrow-color);
+}
+
+.cad-window-btn-max:hover {
+  --arrow-color: #222;
+}
+
+.cad-window-btn-max:hover::before,
+.cad-window-btn-max:hover::after {
+  border-color: #222;
+}
+
+/* When in fullscreen, flip the arrows inward (compress) */
+.cad-window-btn-max.fullscreen-active::before {
+  box-shadow:
+    3px 3px 0 0 var(--arrow-color),
+    2px 3px 0 0 var(--arrow-color),
+    3px 2px 0 0 var(--arrow-color);
+}
+
+.cad-window-btn-max.fullscreen-active::after {
+  box-shadow:
+    -3px -3px 0 0 var(--arrow-color),
+    -2px -3px 0 0 var(--arrow-color),
+    -3px -2px 0 0 var(--arrow-color);
+}
+
+/* RIBBON BAR */
+
+.cad-ribbon-bar {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #b8bfd3;
+  background: linear-gradient(to bottom, #f8f9fc, #e6e9f3);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+}
+
+/* Ribbon top row: tabs + search */
+
+.cad-ribbon-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-inline: 8px;
+  padding-top: 2px;
+}
+
+.cad-ribbon-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.cad-tab {
+  position: relative;
+  padding: 4px 10px 3px;
+  font-size: 12px;
+  border-radius: 3px 3px 0 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #454957;
+  cursor: default;
+}
+
+.cad-tab-active {
+  background: #ffffff;
+  border-color: #b6bdd2;
+  border-bottom-color: #ffffff;
+  font-weight: 600;
+  color: #1c3760;
+}
+
+.cad-ribbon-search {
+  padding-bottom: 2px;
+}
+
+.cad-ribbon-search-input {
+  height: 22px;
+  font-size: 11px;
+  border-radius: 11px;
+  border: 1px solid #c3cadb;
+  padding-inline: 10px;
+  min-width: 160px;
+  background: #ffffff;
+}
+
+/* Ribbon groups row */
+
+.cad-ribbon-groups {
+  display: flex;
+  gap: 12px;
+  padding: 4px 8px 6px;
+  background: linear-gradient(to bottom, #f9fafc, #e4e7f1);
+  border-top: 1px solid #cfd4e5;
+}
+
+.cad-ribbon-group {
+  min-width: 150px;
+  border-radius: 3px;
+  border: 1px solid #cfd4e5;
+  background: #f7f8fc;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 2px 6px 4px;
+}
+
+.cad-ribbon-group-title {
+  margin: 0 0 2px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6a7080;
+}
+
+.cad-ribbon-icons-row {
+  display: flex;
+  gap: 6px;
+}
+
+.cad-ribbon-icon-btn {
+  border-radius: 3px;
+  border: 1px solid #c4cbe0;
+  background: linear-gradient(to bottom, #ffffff, #e3e8f9);
+  padding: 3px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 56px;
+  cursor: default;
+}
+
+.cad-ribbon-icon-large {
+  width: 26px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #78a7f5, #506fd8);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.4);
+}
+
+.cad-ribbon-icon-small {
+  width: 20px;
+  height: 16px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #ffcf65, #f9a826);
+  box-shadow: 0 1px 1px rgba(15, 23, 42, 0.35);
+}
+
+.cad-ribbon-icon-label {
+  font-size: 10px;
+  color: #444a5b;
+}
+
+/* MAIN AREA */
+
+.cad-main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* Left browser panel */
+
+.cad-browser {
+  width: 240px;
+  border-right: 1px solid #b2b8cd;
+  background: linear-gradient(to bottom, #f4f5fa, #e3e6f1);
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+}
+
+.cad-browser-header {
+  padding: 6px 8px 4px;
+  border-bottom: 1px solid #c1c6d6;
+}
+
+.cad-browser-title {
+  font-weight: 600;
+  color: #2e395a;
+}
+
+.cad-browser-tree {
+  padding: 4px 6px 6px;
+}
+
+.cad-tree-item {
+  padding: 2px 2px 2px 14px;
+  position: relative;
+  color: #363b4c;
+}
+
+.cad-tree-item::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  border: 1px solid #71778b;
+  background: #fdfdff;
+}
+
+.cad-tree-root {
+  font-weight: 600;
+}
+
+.cad-tree-child {
+  margin-left: 8px;
+}
+
+.cad-tree-link {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  padding: 1px 2px;
+  margin: -1px -2px;
+  border-radius: 2px;
+}
+
+.cad-tree-link:hover {
+  background: rgba(74, 144, 226, 0.12);
+  color: #2c5aa0;
+}
+
+.cad-tree-link:active {
+  background: rgba(74, 144, 226, 0.2);
+}
+
+.cad-tree-error {
+  color: #c0392b;
+}
+
+.cad-tree-error::before {
+  background: #ffffff;
+  border-color: #c0392b;
+}
+
+/* VIEWPORT */
+
+.cad-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cad-viewport-inner {
+  flex: 1;
+  position: relative;
+  background: radial-gradient(
+      circle at 20% 0,
+      #f6f8fe 0,
+      #d5dff0 40%,
+      #c0ccdf 70%,
+      #b0bed6 100%
+    );
+  overflow: hidden;
+}
+
+/* 3D WebGL viewport overlay */
+#cad-3d-viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* Scrollable portfolio content sits beneath the 3D layer */
+.cad-viewport-inner .cad-portfolio-content {
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ensure overlays stay on top in portfolio mode */
+
+/* Ensure overlays stay on top in portfolio mode */
+.cad-portfolio-content .cad-origin-triad,
+.cad-portfolio-content .cad-viewcube,
+.cad-portfolio-content .cad-viewport-toolbar {
+  position: fixed;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Origin triad */
+
+.cad-origin-triad {
+  position: absolute;
+  left: 18px;
+  bottom: 40px;
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cad-axis {
+  padding: 2px 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.7);
+}
+
+.cad-axis-x {
+  color: #e11d48;
+}
+
+.cad-axis-y {
+  color: #16a34a;
+}
+
+.cad-axis-z {
+  color: #2563eb;
+}
+
+/* View cube */
+
+.cad-viewcube {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  width: 90px;
+  height: 90px;
+  perspective: 600px;
+  perspective-origin: 50% 50%;
+}
+
+.cad-viewcube-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-20deg) rotateY(30deg);
+}
+
+.cad-viewcube-face {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  border-radius: 2px;
+  border: 1px solid #a8b3cc;
+  background: linear-gradient(135deg, #fafbfd 0%, #e8ecf5 100%);
+  font-size: 9px;
+  font-weight: 700;
+  color: #495063;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 2px 4px rgba(15, 23, 42, 0.25);
+  letter-spacing: 0.05em;
+  backface-visibility: hidden;
+}
+
+.cad-viewcube-front {
+  transform: translateZ(27px);
+}
+
+.cad-viewcube-back {
+  transform: rotateY(180deg) translateZ(27px);
+}
+
+.cad-viewcube-right {
+  transform: rotateY(90deg) translateZ(27px);
+}
+
+.cad-viewcube-left {
+  transform: rotateY(-90deg) translateZ(27px);
+}
+
+.cad-viewcube-top {
+  transform: rotateX(90deg) translateZ(27px);
+  background: linear-gradient(135deg, #ffffff 0%, #f2f5fb 100%);
+}
+
+.cad-viewcube-bottom {
+  transform: rotateX(-90deg) translateZ(27px);
+  background: linear-gradient(135deg, #e0e5f0 0%, #d4dae8 100%);
+}
+
+/* Right-side viewport toolbar */
+
+.cad-viewport-toolbar {
+  position: absolute;
+  top: 130px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cad-viewport-tool {
+  width: 26px;
+  height: 26px;
+  border-radius: 3px;
+  border: 1px solid rgba(148, 163, 184, 0.9);
+  background: linear-gradient(to bottom, #fdfefe, #dfe5f3);
+  padding: 0;
+}
+
+/* STATUS BAR */
+
+.cad-status-bar {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 8px;
+  font-size: 11px;
+  background: #f3f4f7;
+  border-top: 1px solid #b5bccf;
+  color: #444b5e;
+}
+
+.cad-status-left {
+  padding-right: 8px;
+  border-right: 1px solid #c3cad8;
+}
+
+.cad-status-right {
+  color: #70768a;
+}
+
+/* Generic button/input resets so default styles don't clash */
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: default;
+}
+
+/* Portfolio Content Styles */
+
+/* Portfolio Content - Scrollable */
+.cad-portfolio-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  background: linear-gradient(135deg, #e8ecf4 0%, #d4dae8 100%);
+}
+
+.cad-portfolio-content::-webkit-scrollbar {
+  width: 12px;
+}
+
+.cad-portfolio-content::-webkit-scrollbar-track {
+  background: #d0d6e4;
+  border-left: 1px solid #b8bfd3;
+}
+
+.cad-portfolio-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #a8b3cc, #8d99b3);
+  border-radius: 6px;
+  border: 2px solid #d0d6e4;
+}
+
+.cad-portfolio-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #8d99b3, #7a8599);
+}
+
+/* Portfolio Sections */
+.portfolio-section {
+  padding: 60px 80px;
+  border-bottom: 2px solid #b8bfd3;
+  position: relative;
+}
+
+.portfolio-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  right: 40px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #a8b3cc, transparent);
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e5a;
+  margin: 0 0 40px;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  display: inline-block;
+}
+
+.title-bracket {
+  color: #5a6d8f;
+  font-size: 36px;
+  font-weight: 400;
+  margin: 0 8px;
+}
+
+.section-content {
+  position: relative;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e4e9f3 100%);
+  padding: 80px 80px 60px;
+}
+
+.hero-content {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.hero-headshot {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.headshot-image {
+  width: 280px;
+  height: 280px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 4px solid #a8b3cc;
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.headshot-frame {
+  position: absolute;
+  inset: -12px;
+  border: 2px solid #5a6d8f;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.headshot-frame::before,
+.headshot-frame::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #5a6d8f;
+}
+
+.headshot-frame::before {
+  top: -3px;
+  left: -3px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.headshot-frame::after {
+  bottom: -3px;
+  right: -3px;
+  border-left: none;
+  border-top: none;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-title {
+  margin: 0 0 16px;
+  font-family: 'Courier New', monospace;
+}
+
+.title-line {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  color: #5a6d8f;
+  margin-bottom: 4px;
+}
+
+.title-name {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  color: #1c3760;
+  letter-spacing: 0.02em;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  color: #4a5d7a;
+  font-weight: 600;
+  margin: 0 0 20px;
+  font-family: system-ui, sans-serif;
+}
+
+.hero-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #3c4d66;
+  margin: 0 0 40px;
+  max-width: 600px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #fff 0%, #f0f4fa 100%);
+  border: 2px solid #b8bfd3;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e5a;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #5a6d8f;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* About Section */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.about-card {
+  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
+  border: 2px solid #c4cbe0;
+  border-radius: 6px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  position: relative;
+}
+
+.about-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #5a6d8f, #7a8fb3);
+  border-radius: 6px 6px 0 0;
+}
+
+.card-header {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e5a;
+  margin-bottom: 12px;
+  font-family: 'Courier New', monospace;
+}
+
+.card-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5d7a;
+}
+
+/* Projects Section */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.project-card {
+  background: linear-gradient(135deg, #fff 0%, #f0f4fa 100%);
+  border: 2px solid #b8bfd3;
+  border-radius: 8px;
+  padding: 28px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #5a6d8f, #4a5d7a);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+  border-color: #8d99b3;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.project-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e5a;
+  font-family: 'Courier New', monospace;
+}
+
+.project-tag {
+  padding: 4px 12px;
+  background: #5a6d8f;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.project-description {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5d7a;
+}
+
+.project-specs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.spec-item {
+  padding: 6px 12px;
+  background: #e4e9f3;
+  border: 1px solid #c4cbe0;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #3c4d66;
+  font-weight: 600;
+}
+
+/* Experience Section */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #5a6d8f, #b8bfd3);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left: 30px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background: #5a6d8f;
+  border: 3px solid #e4e9f3;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px #c4cbe0;
+}
+
+.timeline-content {
+  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
+  border: 2px solid #c4cbe0;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.timeline-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c3e5a;
+  font-family: 'Courier New', monospace;
+}
+
+.timeline-date {
+  font-size: 13px;
+  color: #5a6d8f;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.timeline-company {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: #4a5d7a;
+  font-weight: 600;
+}
+
+.timeline-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5d7a;
+}
+
+/* Skills Section */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 28px;
+}
+
+.skill-category {
+  background: linear-gradient(135deg, #fff 0%, #f0f4fa 100%);
+  border: 2px solid #b8bfd3;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+}
+
+.skill-category-title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e5a;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #5a6d8f;
+  padding-bottom: 8px;
+}
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skill-item {
+  padding: 10px 16px;
+  background: #e4e9f3;
+  border-left: 4px solid #5a6d8f;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3c4d66;
+  transition: all 0.2s ease;
+}
+
+.skill-item:hover {
+  background: #d4dae8;
+  border-left-color: #2c3e5a;
+  transform: translateX(4px);
+}
+
+/* Contact Section */
+.contact-section {
+  background: linear-gradient(135deg, #f0f4fa 0%, #e4e9f3 100%);
+}
+
+.contact-intro {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #3c4d66;
+  margin: 0 0 40px;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-methods {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.contact-card {
+  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
+  border: 2px solid #c4cbe0;
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+  border-color: #8d99b3;
+}
+
+.contact-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.contact-label {
+  font-size: 13px;
+  color: #5a6d8f;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.contact-value {
+  font-size: 16px;
+  color: #2c3e5a;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}

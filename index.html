@@ -3,39 +3,541 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hello World</title>
-    <style>
-      body {
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        margin: 0;
-        background: #f7f7f8;
-        color: #111;
-      }
-      .card {
-        text-align: center;
-        padding: 24px 32px;
-        border-radius: 12px;
-        background: #fff;
-        box-shadow: 0 6px 20px rgba(16, 24, 40, 0.08);
-      }
-      h1 {
-        margin: 0 0 8px 0;
-        font-size: 2rem;
-      }
-      p {
-        margin: 0;
-        color: #444;
-      }
-    </style>
+    <title>CAD Workspace Mock</title>
+    <link rel="stylesheet" href="styles/cad-shell.css" />
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/tiles-3d.js" defer></script>
   </head>
-  <body>
-    <div class="card">
-      <h1>This is my awesome portfolio</h1>
+  <body class="cad-body">
+    <div class="cad-window">
+      <!-- TITLE BAR -->
+      <header class="cad-titlebar">
+        <div class="cad-titlebar-left">
+          <div class="cad-app-icon" aria-label="Profile" title="Profile">
+            <img
+              src="media/headshot.jpg"
+              alt="Profile"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 3px;
+              "
+            />
+          </div>
+          <div class="cad-quick-access">
+            <button class="cad-qa-btn" aria-label="New file"></button>
+            <button class="cad-qa-btn" aria-label="Open file"></button>
+            <button class="cad-qa-btn" aria-label="Save"></button>
+          </div>
+          <div class="cad-doc-info">
+            <span class="cad-doc-name">Part2</span>
+          </div>
+        </div>
+        <div class="cad-titlebar-center">
+          <span class="cad-env-name">Benjamin Mingst</span>
+          <span class="cad-doc-path-separator">|</span>
+          <span class="cad-env-name">Portfolio</span>
+        </div>
+        <div class="cad-titlebar-right">
+          <button
+            class="cad-window-btn cad-window-btn-max"
+            aria-label="Toggle fullscreen"
+            title="Toggle fullscreen (F11)"
+          ></button>
+        </div>
+      </header>
+
+      <!-- RIBBON AREA -->
+      <div class="cad-ribbon-bar">
+        <div class="cad-ribbon-top">
+          <div class="cad-ribbon-tabs" role="tablist">
+            <button
+              class="cad-tab cad-tab-active"
+              type="button"
+              data-tab="Home"
+              role="tab"
+              aria-selected="true"
+            >
+              Home
+            </button>
+            <button class="cad-tab" type="button" data-tab="3dmodel" role="tab">
+              Projects
+            </button>
+            <button class="cad-tab" type="button" data-tab="sketch" role="tab">
+              Leadership
+            </button>
+            <button
+              class="cad-tab"
+              type="button"
+              data-tab="annotate"
+              role="tab"
+            >
+              Experience
+            </button>
+            <button class="cad-tab" type="button" data-tab="inspect" role="tab">
+              About
+            </button>
+            <button class="cad-tab" type="button" data-tab="tools" role="tab">
+              Collaborate
+            </button>
+            <button class="cad-tab" type="button" data-tab="view" role="tab">
+              View
+            </button>
+          </div>
+          <div class="cad-ribbon-search">
+            <input
+              class="cad-ribbon-search-input"
+              type="search"
+              placeholder="Search portfolio"
+              aria-label="Search portfolio"
+            />
+          </div>
+        </div>
+
+        <div class="cad-ribbon-groups">
+          <section
+            class="cad-ribbon-group"
+            data-group="create"
+            aria-label="Create"
+          >
+            <h2 class="cad-ribbon-group-title">Create</h2>
+            <div class="cad-ribbon-icons-row">
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Extrude</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Revolve</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Sweep</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Loft</span>
+              </button>
+            </div>
+          </section>
+
+          <section
+            class="cad-ribbon-group"
+            data-group="modify"
+            aria-label="Modify"
+          >
+            <h2 class="cad-ribbon-group-title">Modify</h2>
+            <div class="cad-ribbon-icons-row">
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Fillet</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Chamfer</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Shell</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Draft</span>
+              </button>
+            </div>
+          </section>
+
+          <section
+            class="cad-ribbon-group"
+            data-group="workfeatures"
+            aria-label="Work features"
+          >
+            <h2 class="cad-ribbon-group-title">Work Features</h2>
+            <div class="cad-ribbon-icons-row">
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-small"></span>
+                <span class="cad-ribbon-icon-label">Plane</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-small"></span>
+                <span class="cad-ribbon-icon-label">Axis</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-small"></span>
+                <span class="cad-ribbon-icon-label">Point</span>
+              </button>
+            </div>
+          </section>
+
+          <section
+            class="cad-ribbon-group"
+            data-group="surface"
+            aria-label="Surface"
+          >
+            <h2 class="cad-ribbon-group-title">Surface</h2>
+            <div class="cad-ribbon-icons-row">
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Patch</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Trim</span>
+              </button>
+              <button type="button" class="cad-ribbon-icon-btn">
+                <span class="cad-ribbon-icon-large"></span>
+                <span class="cad-ribbon-icon-label">Extend</span>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- MAIN AREA: LEFT BROWSER + VIEWPORT -->
+      <div class="cad-main">
+        <!-- Left panel -->
+        <aside class="cad-browser" aria-label="Page navigation">
+          <div class="cad-browser-header">
+            <span class="cad-browser-title">Page</span>
+          </div>
+          <div class="cad-browser-tree">
+            <div class="cad-tree-item cad-tree-root">Home</div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#overview" class="cad-tree-link">Overview</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#about" class="cad-tree-link">About</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#projects" class="cad-tree-link">Projects</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#experience" class="cad-tree-link">Experience</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#skills" class="cad-tree-link">Skills</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#contact" class="cad-tree-link">Contact</a>
+            </div>
+          </div>
+        </aside>
+        <!-- Viewport -->
+        <main class="cad-viewport" aria-label="Workspace viewport">
+          <div class="cad-viewport-inner">
+            <div class="cad-portfolio-content">
+              <!-- CAD Overlays - Fixed Position -->
+              <div class="cad-origin-triad" aria-hidden="true">
+                <span class="cad-axis cad-axis-x">X</span>
+                <span class="cad-axis cad-axis-y">Y</span>
+                <span class="cad-axis cad-axis-z">Z</span>
+              </div>
+
+              <div class="cad-viewcube" aria-hidden="true">
+                <div class="cad-viewcube-inner">
+                  <div class="cad-viewcube-face cad-viewcube-front">FRONT</div>
+                  <div class="cad-viewcube-face cad-viewcube-top">TOP</div>
+                  <div class="cad-viewcube-face cad-viewcube-right">RIGHT</div>
+                  <div class="cad-viewcube-face cad-viewcube-back">BACK</div>
+                  <div class="cad-viewcube-face cad-viewcube-bottom">
+                    BOTTOM
+                  </div>
+                  <div class="cad-viewcube-face cad-viewcube-left">LEFT</div>
+                </div>
+              </div>
+
+              <div class="cad-viewport-toolbar">
+                <button class="cad-viewport-tool" title="Pan"></button>
+                <button class="cad-viewport-tool" title="Zoom"></button>
+                <button class="cad-viewport-tool" title="Rotate"></button>
+                <button class="cad-viewport-tool" title="Fit"></button>
+                <button class="cad-viewport-tool" title="Home"></button>
+              </div>
+
+              <!-- Hero Section -->
+              <section id="overview" class="portfolio-section hero-section">
+                <div class="hero-content">
+                  <div class="hero-headshot">
+                    <img
+                      src="media/headshot.jpg"
+                      alt="Benjamin Mingst"
+                      class="headshot-image"
+                    />
+                    <div class="headshot-frame"></div>
+                  </div>
+                  <div class="hero-text">
+                    <h1 class="hero-title">
+                      <span class="title-line">Hi, I'm</span>
+                      <span class="title-name">Benjamin Mingst</span>
+                    </h1>
+                    <p class="hero-subtitle">Engineer | Designer | Innovator</p>
+                    <p class="hero-description">
+                      Crafting precision-engineered solutions at the
+                      intersection of mechanical design, product development,
+                      and digital innovation. Transforming complex challenges
+                      into elegant, manufacturable reality.
+                    </p>
+                    <div class="hero-stats">
+                      <div class="stat-item">
+                        <div class="stat-value">5+</div>
+                        <div class="stat-label">Years Experience</div>
+                      </div>
+                      <div class="stat-item">
+                        <div class="stat-value">20+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                      </div>
+                      <div class="stat-item">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- About Section -->
+              <section id="about" class="portfolio-section about-section">
+                <h2 class="section-title">
+                  <span class="title-bracket">[</span>
+                  About Me
+                  <span class="title-bracket">]</span>
+                </h2>
+                <div class="section-content">
+                  <div class="about-grid">
+                    <div class="about-card">
+                      <div class="card-header">Engineering Excellence</div>
+                      <div class="card-body">
+                        Specialized in CAD/CAM design, product development, and
+                        manufacturing optimization. Proficient in SolidWorks,
+                        AutoCAD, and advanced engineering analysis tools.
+                      </div>
+                    </div>
+                    <div class="about-card">
+                      <div class="card-header">Innovation Mindset</div>
+                      <div class="card-body">
+                        Passionate about pushing boundaries in mechanical
+                        design, integrating cutting-edge technologies with
+                        practical engineering fundamentals.
+                      </div>
+                    </div>
+                    <div class="about-card">
+                      <div class="card-header">Leadership & Collaboration</div>
+                      <div class="card-body">
+                        Experienced in leading cross-functional teams, mentoring
+                        junior engineers, and driving projects from concept to
+                        production.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Projects Section -->
+              <section id="projects" class="portfolio-section projects-section">
+                <h2 class="section-title">
+                  <span class="title-bracket">[</span>
+                  Featured Projects
+                  <span class="title-bracket">]</span>
+                </h2>
+                <div class="section-content">
+                  <div class="projects-grid">
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">
+                          Advanced Manufacturing System
+                        </h3>
+                        <div class="project-tag">Mechanical Design</div>
+                      </div>
+                      <p class="project-description">
+                        Designed and implemented automated production line
+                        components, increasing throughput by 40% while
+                        maintaining precision tolerances.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">CAD Design</div>
+                        <div class="spec-item">FEA Analysis</div>
+                        <div class="spec-item">Prototyping</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">
+                          Product Development Initiative
+                        </h3>
+                        <div class="project-tag">Innovation</div>
+                      </div>
+                      <p class="project-description">
+                        Led product development from conceptual design through
+                        manufacturing, delivering market-ready solutions on time
+                        and under budget.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">SolidWorks</div>
+                        <div class="spec-item">DFM</div>
+                        <div class="spec-item">Testing</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">Engineering Optimization</h3>
+                        <div class="project-tag">Process Improvement</div>
+                      </div>
+                      <p class="project-description">
+                        Streamlined engineering workflows and implemented best
+                        practices, reducing design iteration time by 30%.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">Workflow Design</div>
+                        <div class="spec-item">Automation</div>
+                        <div class="spec-item">Training</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Experience Section -->
+              <section
+                id="experience"
+                class="portfolio-section experience-section"
+              >
+                <h2 class="section-title">
+                  <span class="title-bracket">[</span>
+                  Experience
+                  <span class="title-bracket">]</span>
+                </h2>
+                <div class="section-content">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-marker"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-header">
+                          <h3>Senior Mechanical Engineer</h3>
+                          <span class="timeline-date">2020 - Present</span>
+                        </div>
+                        <p class="timeline-company">
+                          Engineering Solutions Inc.
+                        </p>
+                        <p class="timeline-description">
+                          Leading design initiatives for complex mechanical
+                          systems, mentoring junior engineers, and driving
+                          continuous improvement in engineering processes.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-marker"></div>
+                      <div class="timeline-content">
+                        <div class="timeline-header">
+                          <h3>Mechanical Design Engineer</h3>
+                          <span class="timeline-date">2018 - 2020</span>
+                        </div>
+                        <p class="timeline-company">Innovation Labs</p>
+                        <p class="timeline-description">
+                          Developed CAD models and engineering drawings,
+                          performed FEA analysis, and collaborated with
+                          manufacturing teams on product development.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Skills Section -->
+              <section id="skills" class="portfolio-section skills-section">
+                <h2 class="section-title">
+                  <span class="title-bracket">[</span>
+                  Technical Skills
+                  <span class="title-bracket">]</span>
+                </h2>
+                <div class="section-content">
+                  <div class="skills-grid">
+                    <div class="skill-category">
+                      <h3 class="skill-category-title">CAD & Design</h3>
+                      <div class="skill-list">
+                        <div class="skill-item">SolidWorks</div>
+                        <div class="skill-item">AutoCAD</div>
+                        <div class="skill-item">Inventor</div>
+                        <div class="skill-item">CATIA</div>
+                      </div>
+                    </div>
+
+                    <div class="skill-category">
+                      <h3 class="skill-category-title">Engineering Analysis</h3>
+                      <div class="skill-list">
+                        <div class="skill-item">FEA</div>
+                        <div class="skill-item">CFD</div>
+                        <div class="skill-item">GD&T</div>
+                        <div class="skill-item">Tolerance Analysis</div>
+                      </div>
+                    </div>
+
+                    <div class="skill-category">
+                      <h3 class="skill-category-title">Manufacturing</h3>
+                      <div class="skill-list">
+                        <div class="skill-item">DFM/DFA</div>
+                        <div class="skill-item">CNC Programming</div>
+                        <div class="skill-item">3D Printing</div>
+                        <div class="skill-item">Quality Control</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Contact Section -->
+              <section id="contact" class="portfolio-section contact-section">
+                <h2 class="section-title">
+                  <span class="title-bracket">[</span>
+                  Get In Touch
+                  <span class="title-bracket">]</span>
+                </h2>
+                <div class="section-content">
+                  <p class="contact-intro">
+                    Interested in collaborating on your next engineering
+                    project? Let's connect and discuss how we can bring your
+                    ideas to life.
+                  </p>
+                  <div class="contact-methods">
+                    <div class="contact-card">
+                      <div class="contact-icon">📧</div>
+                      <div class="contact-label">Email</div>
+                      <div class="contact-value">benjamin.mingst@email.com</div>
+                    </div>
+                    <div class="contact-card">
+                      <div class="contact-icon">💼</div>
+                      <div class="contact-label">LinkedIn</div>
+                      <div class="contact-value">
+                        linkedin.com/in/benjaminmingst
+                      </div>
+                    </div>
+                    <div class="contact-card">
+                      <div class="contact-icon">🔗</div>
+                      <div class="contact-label">Portfolio</div>
+                      <div class="contact-value">github.com/benjaminmingst</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <!-- WebGL 3D viewport overlay for CAD-style tiles -->
+            <div id="cad-3d-viewport" aria-hidden="false"></div>
+          </div>
+        </main>
+      </div>
+
+      <!-- STATUS BAR -->
+      <footer class="cad-status-bar">
+        <span class="cad-status-left">Open to work</span>
+        <span class="cad-status-right">1 | 7</span>
+      </footer>
     </div>
   </body>
 </html>
