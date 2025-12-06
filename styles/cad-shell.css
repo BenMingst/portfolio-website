@@ -222,9 +222,9 @@ body {
 .cad-ribbon-bar {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #b8bfd3;
-  background: linear-gradient(to bottom, #f8f9fc, #e6e9f3);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+  border-bottom: 1px solid #cdd2e0;
+  background: #f5f7fa;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
 /* Ribbon top row: tabs + search */
@@ -280,44 +280,56 @@ body {
 .cad-ribbon-groups {
   display: flex;
   gap: 12px;
-  padding: 4px 8px 6px;
-  background: linear-gradient(to bottom, #f9fafc, #e4e7f1);
-  border-top: 1px solid #cfd4e5;
+  padding: 6px 12px 8px;
+  background: #f5f7fa;
+  border-top: 1px solid #e2e6f0;
 }
 
 .cad-ribbon-group {
-  min-width: 150px;
-  border-radius: 3px;
-  border: 1px solid #cfd4e5;
-  background: #f7f8fc;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  padding: 2px 6px 4px;
+  min-width: 120px;
+  border-radius: 4px;
+  border: 1px solid #e2e6f0;
+  background: #ffffff;
+  padding: 4px 8px 6px;
 }
 
 .cad-ribbon-group-title {
-  margin: 0 0 2px;
+  margin: 0 0 4px;
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #6a7080;
+  letter-spacing: 0.05em;
+  color: #8d94a5;
+  text-align: center;
+  font-weight: 600;
 }
 
 .cad-ribbon-icons-row {
   display: flex;
   gap: 6px;
+  justify-content: center;
 }
 
 .cad-ribbon-icon-btn {
   border-radius: 3px;
-  border: 1px solid #c4cbe0;
-  background: linear-gradient(to bottom, #ffffff, #e3e8f9);
-  padding: 3px 5px;
+  border: 1px solid #e2e6f0;
+  background: linear-gradient(to bottom, #ffffff, #f8f9fc);
+  padding: 6px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  min-width: 56px;
-  cursor: default;
+  gap: 4px;
+  min-width: 64px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #444a5b;
+  transition: all 0.2s ease;
+}
+
+.cad-ribbon-icon-btn:hover {
+  background: #ffffff;
+  border-color: #a0a9c2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transform: translateY(-1px);
 }
 
 .cad-ribbon-icon-large {
@@ -326,6 +338,9 @@ body {
   border-radius: 3px;
   background: linear-gradient(135deg, #78a7f5, #506fd8);
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cad-ribbon-icon-small {
@@ -334,11 +349,15 @@ body {
   border-radius: 3px;
   background: linear-gradient(135deg, #ffcf65, #f9a826);
   box-shadow: 0 1px 1px rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cad-ribbon-icon-label {
   font-size: 10px;
   color: #444a5b;
+  text-align: center;
 }
 
 /* MAIN AREA */
@@ -353,11 +372,48 @@ body {
 
 .cad-browser {
   width: 240px;
+  min-width: 200px;
   border-right: 1px solid #b2b8cd;
   background: linear-gradient(to bottom, #f4f5fa, #e3e6f1);
   display: flex;
   flex-direction: column;
   font-size: 11px;
+  transition: width 0.18s ease;
+}
+
+/* Narrow vertical toggle between browser and viewport */
+.cad-browser-toggle {
+  width: 10px;
+  min-width: 8px;
+  border: none;
+  border-right: 1px solid #b2b8cd;
+  border-left: 1px solid #cdd2e0;
+  background: linear-gradient(to bottom, #e6e9f5, #d2d7e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #4b4f5c;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cad-browser-toggle:hover {
+  background: linear-gradient(to bottom, #f7f8fc, #e2e6f5);
+}
+
+/* Collapsed state: hide the tree and header, let viewport fill space */
+.cad-main--browser-collapsed .cad-browser {
+  width: 0;
+  min-width: 0;
+  padding: 0;
+  border-right: none;
+  overflow: hidden;
+}
+
+.cad-main--browser-collapsed .cad-browser-header,
+.cad-main--browser-collapsed .cad-browser-tree {
+  display: none;
 }
 
 .cad-browser-header {
@@ -446,7 +502,8 @@ body {
       #c0ccdf 70%,
       #b0bed6 100%
     );
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* 3D WebGL viewport overlay */
@@ -456,13 +513,6 @@ body {
   z-index: 2;
 }
 
-/* Scrollable portfolio content sits beneath the 3D layer */
-.cad-viewport-inner .cad-portfolio-content {
-  position: relative;
-  z-index: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
 
 /* Ensure overlays stay on top in portfolio mode */
 
@@ -544,6 +594,13 @@ body {
     0 2px 4px rgba(15, 23, 42, 0.25);
   letter-spacing: 0.05em;
   backface-visibility: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cad-viewcube-face:hover {
+  background: #dce4f5;
+  color: #2c5aa0;
 }
 
 .cad-viewcube-front {
@@ -568,9 +625,45 @@ body {
 }
 
 .cad-viewcube-bottom {
-  transform: rotateX(-90deg) translateZ(27px);
+  transform: rotateX(-90deg) translateZ(27px) rotate(180deg);
   background: linear-gradient(135deg, #e0e5f0 0%, #d4dae8 100%);
 }
+
+/* ViewCube Corners */
+.cad-viewcube-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.cad-viewcube-corner:hover::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: rgba(44, 90, 160, 0.3);
+  border-radius: 2px;
+}
+
+/* Front-Top-Right */
+.corner-ftr { top: -9px; right: -9px; transform: translateZ(27px); }
+/* Front-Top-Left */
+.corner-ftl { top: -9px; left: -9px; transform: translateZ(27px); }
+/* Front-Bottom-Right */
+.corner-fbr { bottom: -9px; right: -9px; transform: translateZ(27px); }
+/* Front-Bottom-Left */
+.corner-fbl { bottom: -9px; left: -9px; transform: translateZ(27px); }
+
+/* Back-Top-Right */
+.corner-btr { top: -9px; right: -9px; transform: translateZ(-27px); }
+/* Back-Top-Left */
+.corner-btl { top: -9px; left: -9px; transform: translateZ(-27px); }
+/* Back-Bottom-Right */
+.corner-bbr { bottom: -9px; right: -9px; transform: translateZ(-27px); }
+/* Back-Bottom-Left */
+.corner-bbl { bottom: -9px; left: -9px; transform: translateZ(-27px); }
 
 /* Right-side viewport toolbar */
 
@@ -615,6 +708,47 @@ body {
   color: #70768a;
 }
 
+/* BOTTOM TABS */
+
+.cad-bottom-tabs {
+  background: #f3f4f7;
+  border-top: 1px solid #b5bccf;
+  padding: 2px 4px 0;
+}
+
+.cad-bottom-tabs-list {
+  display: flex;
+  gap: 2px;
+}
+
+.cad-bottom-tab {
+  position: relative;
+  padding: 4px 12px 3px;
+  font-size: 12px;
+  border-radius: 3px 3px 0 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #454957;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.cad-bottom-tab:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.cad-bottom-tab-active {
+  background: #ffffff;
+  border-color: #b6bdd2;
+  border-bottom-color: #ffffff;
+  font-weight: 600;
+  color: #1c3760;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -1px;
+  padding-bottom: 4px;
+}
+
 /* Generic button/input resets so default styles don't clash */
 
 button,
@@ -633,7 +767,9 @@ button {
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0;
-  background: linear-gradient(135deg, #e8ecf4 0%, #d4dae8 100%);
+  background: #b0bed6; /* Darker background behind sheets */
+  scroll-snap-type: y mandatory;
+  height: 100%;
 }
 
 .cad-portfolio-content::-webkit-scrollbar {
@@ -655,21 +791,189 @@ button {
   background: linear-gradient(to bottom, #8d99b3, #7a8599);
 }
 
-/* Portfolio Sections */
-.portfolio-section {
-  padding: 60px 80px;
-  border-bottom: 2px solid #b8bfd3;
+/* Technical Drawing Sheet Styles */
+
+.technical-sheet {
+  width: 100%;
+  min-height: 100%; /* Fill the viewport height */
+  height: auto;
+  background-color: #fdfdf0; /* Off-white paper color */
   position: relative;
+  padding: 40px; /* Space for the border */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px; /* Spacing between sheets if scrolling continuously */
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-.portfolio-section::before {
+/* The inner border line */
+.sheet-border {
+  border: 2px solid #000;
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px; /* Inner padding for content */
+}
+
+/* Grid Ticks / Rulers */
+.sheet-ticks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Top and Bottom Ticks */
+.sheet-ticks::before,
+.sheet-ticks::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: linear-gradient(to right, #000 1px, transparent 1px);
+  background-size: 10% 100%; /* 10 ticks across */
+}
+
+.sheet-ticks::before {
+  top: 0;
+  border-bottom: 1px solid #000;
+}
+
+.sheet-ticks::after {
+  bottom: 0;
+  border-top: 1px solid #000;
+}
+
+/* Left and Right Ticks */
+.sheet-ticks-vertical {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sheet-ticks-vertical::before,
+.sheet-ticks-vertical::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 40px;
-  right: 40px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #a8b3cc, transparent);
+  bottom: 0;
+  width: 10px;
+  background-image: linear-gradient(to bottom, #000 1px, transparent 1px);
+  background-size: 100% 10%; /* 10 ticks down */
+}
+
+.sheet-ticks-vertical::before {
+  left: 0;
+  border-right: 1px solid #000;
+}
+
+.sheet-ticks-vertical::after {
+  right: 0;
+  border-left: 1px solid #000;
+}
+
+/* Center markers (arrows) */
+.sheet-marker-top {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+.sheet-marker-bottom {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+.sheet-marker-left {
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+.sheet-marker-right {
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+
+/* Title Block */
+.title-block {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  height: 120px;
+  border-top: 2px solid #000;
+  border-left: 2px solid #000;
+  background: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+}
+
+.tb-cell {
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 2px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tb-cell:last-child {
+  border-right: none;
+}
+
+.tb-row-span-2 {
+  grid-row: span 2;
+}
+
+.tb-col-span-2 {
+  grid-column: span 2;
+}
+
+.tb-col-span-3 {
+  grid-column: span 3;
+}
+
+.tb-label {
+  font-size: 8px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.tb-value {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/* Portfolio Sections - Adapted for Sheet */
+.portfolio-section {
+  padding: 0; /* Padding is handled by sheet-border */
+  border-bottom: none;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.portfolio-section::before {
+  display: none;
 }
 
 .section-title {
@@ -697,8 +1001,9 @@ button {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #f0f4fa 0%, #e4e9f3 100%);
+  background: transparent; /* text sits directly on the technical sheet */
   padding: 80px 80px 60px;
+  border: none;
 }
 
 .hero-content {
@@ -798,31 +1103,40 @@ button {
 
 .hero-stats {
   display: flex;
-  gap: 40px;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 24px;
 }
 
 .stat-item {
+  min-width: 180px;
   text-align: center;
   padding: 16px 24px;
-  background: linear-gradient(135deg, #fff 0%, #f0f4fa 100%);
-  border: 2px solid #b8bfd3;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1);
+  background: transparent;
+  border-radius: 2px;
+  border: 1.5px solid #111827; /* simple black border */
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Disable previous inner frames / ticks for a cleaner look */
+.stat-item::before,
+.stat-item::after {
+  content: none;
 }
 
 .stat-value {
   font-size: 32px;
   font-weight: 700;
-  color: #2c3e5a;
+  color: #111827;
   font-family: 'Courier New', monospace;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .stat-label {
   font-size: 11px;
-  color: #5a6d8f;
+  color: #111827;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   font-weight: 600;
 }
 
@@ -834,11 +1148,11 @@ button {
 }
 
 .about-card {
-  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
-  border: 2px solid #c4cbe0;
-  border-radius: 6px;
+  background: transparent;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  box-shadow: none;
   position: relative;
 }
 
@@ -875,14 +1189,14 @@ button {
 }
 
 .project-card {
-  background: linear-gradient(135deg, #fff 0%, #f0f4fa 100%);
-  border: 2px solid #b8bfd3;
-  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
   padding: 28px;
-  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
-  transition: all 0.3s ease;
+  box-shadow: none;
+  transition: all 0.2s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .project-card::before {
@@ -987,11 +1301,11 @@ button {
 }
 
 .timeline-content {
-  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
-  border: 2px solid #c4cbe0;
-  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  box-shadow: none;
 }
 
 .timeline-header {
@@ -1040,11 +1354,11 @@ button {
 }
 
 .skill-category {
-  background: linear-gradient(135deg, #fff 0%, #f0f4fa 100%);
-  border: 2px solid #b8bfd3;
-  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
   padding: 24px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+  box-shadow: none;
 }
 
 .skill-category-title {
@@ -1084,7 +1398,7 @@ button {
 
 /* Contact Section */
 .contact-section {
-  background: linear-gradient(135deg, #f0f4fa 0%, #e4e9f3 100%);
+  background: transparent; /* no panel, just text + icons on the sheet */
 }
 
 .contact-intro {
@@ -1105,13 +1419,13 @@ button {
 }
 
 .contact-card {
-  background: linear-gradient(135deg, #fff 0%, #f7f9fc 100%);
-  border: 2px solid #c4cbe0;
-  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
   padding: 32px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: none;
+  transition: all 0.2s ease;
 }
 
 .contact-card:hover {
@@ -1139,4 +1453,179 @@ button {
   color: #2c3e5a;
   font-weight: 600;
   font-family: 'Courier New', monospace;
+}
+
+/* ------------------------------------------------------------------ */
+/* Technical Documentation UI Enhancements (shared across pages)      */
+/* ------------------------------------------------------------------ */
+
+.doc-section-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b7280;
+}
+
+.doc-section-label {
+  font-weight: 700;
+  color: #374151;
+}
+
+.doc-section-separator {
+  opacity: 0.65;
+}
+
+.doc-section-name {
+  font-weight: 600;
+  color: #1f2933;
+}
+
+.doc-section-spacer {
+  flex: 1;
+}
+
+.doc-chip {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #d4d4d8;
+  background: #f9fafb;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #374151;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.doc-chip-muted {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.doc-chip-outline {
+  background: transparent;
+  border-color: #d4d4d8;
+}
+
+/* Small monospace "label" text used for inline metadata */
+.doc-label {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #9ca3af;
+}
+
+/* ------------------------------------------------------------------ */
+/* Skills Page - Technical Doc Layout                                 */
+/* ------------------------------------------------------------------ */
+
+.cad-body[data-page="skills"] .hero-section {
+  background: transparent;
+  padding: 56px 64px 40px;
+  border-bottom: none;
+}
+
+.cad-body[data-page="skills"] .hero-text {
+  max-width: 720px;
+}
+
+.cad-body[data-page="skills"] .hero-title {
+  margin-top: 4px;
+}
+
+.cad-body[data-page="skills"] .hero-description {
+  max-width: 720px;
+  font-size: 15px;
+}
+
+/* Section titles on the skills page: slightly more compact, doc-like */
+.cad-body[data-page="skills"] .section-title {
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+
+/* Treat the skills grid as a set of spec modules */
+.cad-body[data-page="skills"] .skills-grid {
+  gap: 20px;
+}
+
+/* Card wrapper for each skill category */
+.cad-body[data-page="skills"] .skill-category {
+  padding: 20px 20px 18px;
+  border-radius: 10px;
+  border-width: 1px;
+  background: radial-gradient(circle at top left, #ffffff 0%, #f5f7fb 50%, #edf0f7 100%);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.08),
+    0 0 0 1px rgba(148, 163, 184, 0.3);
+}
+
+/* Header bar for each category */
+.cad-body[data-page="skills"] .skill-category-title {
+  border-bottom: 1px solid #cbd5f5;
+  padding-bottom: 6px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* Optional inline label area on the right of category headers */
+.cad-body[data-page="skills"] .skill-category-title .doc-label {
+  font-size: 9px;
+}
+
+/* Skill list as wrapped chips instead of full-width rows */
+.cad-body[data-page="skills"] .skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Individual skill chip */
+.cad-body[data-page="skills"] .skill-item {
+  padding: 6px 12px;
+  background: #f9fafb;
+  color: #111827;
+  border-radius: 999px;
+  border: 1px solid #d4d4d8;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.06);
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+}
+
+.cad-body[data-page="skills"] .skill-item:hover {
+  background: #e5e7eb;
+  border-color: #a1a1aa;
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Contact sheet on skills page: slightly more restrained */
+.cad-body[data-page="skills"] .contact-section {
+  background: #f5f5f0;
+}
+
+.cad-body[data-page="skills"] .contact-card {
+  border-radius: 10px;
+}
+
+/* Hide CAD overlays on all non-3D pages */
+.cad-body:not([data-page="3d-viewer"]) .cad-origin-triad,
+.cad-body:not([data-page="3d-viewer"]) .cad-viewcube,
+.cad-body:not([data-page="3d-viewer"]) .cad-viewport-toolbar {
+  display: none !important;
 }

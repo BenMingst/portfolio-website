@@ -3,20 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home | Benjamin Mingst Portfolio</title>
-    <link rel="stylesheet" href="styles/cad-shell.css" />
+    <title>Experience | Benjamin Mingst Portfolio</title>
+    <link rel="stylesheet" href="../styles/cad-shell.css" />
     <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-    <script src="js/ribbon.js" defer></script>
-    <script src="js/home.js" defer></script>
+    <script src="../js/ribbon.js" defer></script>
+    <script src="../js/home.js" defer></script>
   </head>
-  <body class="cad-body" data-page="home">
+  <body class="cad-body" data-page="experience">
     <div class="cad-window">
       <!-- TITLE BAR -->
       <header class="cad-titlebar">
         <div class="cad-titlebar-left">
           <div class="cad-app-icon" aria-label="Profile" title="Profile">
             <img
-              src="media/headshot.jpg"
+              src="../media/headshot.jpg"
               alt="Profile"
               style="
                 width: 100%;
@@ -30,6 +30,9 @@
             <button class="cad-qa-btn" aria-label="New file"></button>
             <button class="cad-qa-btn" aria-label="Open file"></button>
             <button class="cad-qa-btn" aria-label="Save"></button>
+          </div>
+          <div class="cad-doc-info">
+            <span class="cad-doc-name">Experience</span>
           </div>
         </div>
         <div class="cad-titlebar-center">
@@ -51,21 +54,23 @@
         <div class="cad-ribbon-top">
           <div class="cad-ribbon-tabs" role="tablist">
             <button
-              class="cad-tab cad-tab-active"
+              class="cad-tab"
               type="button"
               data-tab="home"
+              data-scroll="#overview"
               role="tab"
-              aria-selected="true"
+              aria-selected="false"
+              onclick="window.location.href='../index.html'"
             >
               Home
             </button>
             <button
-              class="cad-tab"
+              class="cad-tab cad-tab-active"
               type="button"
               data-tab="experience"
+              data-scroll="#experience"
               role="tab"
-              aria-selected="false"
-              onclick="window.location.href='pages/experience.html'"
+              aria-selected="true"
             >
               Experience
             </button>
@@ -73,9 +78,10 @@
               class="cad-tab"
               type="button"
               data-tab="projects"
+              data-scroll="#projects"
               role="tab"
               aria-selected="false"
-              onclick="window.location.href='pages/projects.html'"
+              onclick="window.location.href='projects.html'"
             >
               Projects
             </button>
@@ -83,9 +89,10 @@
               class="cad-tab"
               type="button"
               data-tab="skills"
+              data-scroll="#skills"
               role="tab"
               aria-selected="false"
-              onclick="window.location.href='pages/skills.html'"
+              onclick="window.location.href='skills.html'"
             >
               Skills
             </button>
@@ -95,7 +102,7 @@
               data-tab="awards"
               role="tab"
               aria-selected="false"
-              onclick="window.location.href='pages/awards.html'"
+              onclick="window.location.href='awards.html'"
             >
               Awards & Certs
             </button>
@@ -105,7 +112,7 @@
               data-tab="3d-viewer"
               role="tab"
               aria-selected="false"
-              onclick="window.location.href='pages/3d-viewer.html'"
+              onclick="window.location.href='3d-viewer.html'"
             >
               3D Viewer
             </button>
@@ -132,6 +139,14 @@
               >
                 <span class="cad-ribbon-icon-large">❔</span>
                 <span class="cad-ribbon-icon-label">How to navigate</span>
+              </button>
+              <button
+                type="button"
+                class="cad-ribbon-icon-btn"
+                data-scroll="#contact"
+              >
+                <span class="cad-ribbon-icon-large">💬</span>
+                <span class="cad-ribbon-icon-label">How to reach me</span>
               </button>
             </div>
           </section>
@@ -191,7 +206,7 @@
             <div class="cad-ribbon-icons-row">
               <a
                 class="cad-ribbon-icon-btn"
-                href="media/Benjamin_Mingst_Resume.pdf"
+                href="../media/Benjamin_Mingst_Resume.pdf"
                 download
               >
                 <span class="cad-ribbon-icon-large">📄</span>
@@ -237,7 +252,7 @@
             <span class="cad-browser-title">Page</span>
           </div>
           <div class="cad-browser-tree">
-            <div class="cad-tree-item cad-tree-root">Home</div>
+            <div class="cad-tree-item cad-tree-root">Experience</div>
             <div class="cad-tree-item cad-tree-child">
               <a href="#overview" class="cad-tree-link">Overview</a>
             </div>
@@ -304,7 +319,7 @@
                     <div class="hero-content">
                       <div class="hero-headshot">
                         <img
-                          src="media/headshot.jpg"
+                          src="../media/headshot.jpg"
                           alt="Benjamin Mingst"
                           class="headshot-image"
                         />
@@ -315,16 +330,16 @@
                           <span class="doc-section-label">Section</span>
                           <span class="doc-section-separator">/</span>
                           <span class="doc-section-name"
-                            >Portfolio Overview</span
+                            >Experience Overview</span
                           >
                           <span class="doc-section-spacer"></span>
                           <span class="doc-chip doc-chip-muted"
-                            >Doc ID: HOM-001</span
+                            >Doc ID: EXP-001</span
                           >
                           <span class="doc-chip">Revision 1</span>
                         </div>
                         <h1 class="hero-title">
-                          <span class="title-line">Hi, I'm</span>
+                          <span class="title-line">Experience</span>
                           <span class="title-name">Benjamin Mingst</span>
                         </h1>
                         <p class="hero-subtitle">
@@ -341,19 +356,19 @@
                           <div class="stat-item">
                             <div class="stat-value">3+</div>
                             <div class="stat-label">
-                              Years Building & Testing Software
+                              Years Industry & STEM Experience
                             </div>
                           </div>
                           <div class="stat-item">
-                            <div class="stat-value">10+</div>
+                            <div class="stat-value">4</div>
                             <div class="stat-label">
-                              Projects Shipped or Supported
+                              Key Roles Across Testing, Dev & Teaching
                             </div>
                           </div>
                           <div class="stat-item">
-                            <div class="stat-value">100%</div>
+                            <div class="stat-value">200+</div>
                             <div class="stat-label">
-                              Focus on Reliability & Safety
+                              Issues Logged & Improvements Shipped
                             </div>
                           </div>
                         </div>
@@ -372,11 +387,240 @@
                     </div>
                     <div class="tb-cell tb-col-span-2">
                       <span class="tb-label">Title</span>
-                      <span class="tb-value">HOME / OVERVIEW</span>
+                      <span class="tb-value">EXPERIENCE / OVERVIEW</span>
                     </div>
                     <div class="tb-cell">
                       <span class="tb-label">Sheet</span>
-                      <span class="tb-value">01 / 02</span>
+                      <span class="tb-value">01 / 04</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-3">
+                      <span class="tb-label">Author</span>
+                      <span class="tb-value">BENJAMIN MINGST</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-3">
+                      <span class="tb-label">Status</span>
+                      <span class="tb-value">APPROVED FOR RELEASE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- About Section Sheet -->
+              <div class="technical-sheet" id="about">
+                <div class="sheet-border">
+                  <div class="sheet-ticks"></div>
+                  <div class="sheet-ticks-vertical"></div>
+                  <div class="sheet-marker-top">⬇</div>
+                  <div class="sheet-marker-bottom">⬆</div>
+                  <div class="sheet-marker-left">➡</div>
+                  <div class="sheet-marker-right">⬅</div>
+
+                  <section class="portfolio-section about-section">
+                    <div class="doc-section-meta">
+                      <span class="doc-section-label">Section</span>
+                      <span class="doc-section-separator">/</span>
+                      <span class="doc-section-name">Experience Summary</span>
+                      <span class="doc-section-spacer"></span>
+                      <span class="doc-chip">Profile</span>
+                      <span class="doc-chip doc-chip-muted"
+                        >Last Updated: 2025</span
+                      >
+                    </div>
+                    <h2 class="section-title">
+                      <span class="title-bracket">[</span>
+                      Experience Summary
+                      <span class="title-bracket">]</span>
+                    </h2>
+                    <div class="section-content">
+                      <div class="about-grid">
+                        <div class="about-card">
+                          <div class="card-header">Quality & Testing</div>
+                          <div class="card-body">
+                            Identifying and documenting hundreds of bugs
+                            including critical security vulnerabilities at
+                            Behavioral Health Link, ensuring platform stability
+                            and client safety.
+                          </div>
+                        </div>
+                        <div class="about-card">
+                          <div class="card-header">Development</div>
+                          <div class="card-body">
+                            Building responsive web solutions and technical
+                            projects, from WordPress sites to AI integration
+                            initiatives, with focus on usability and
+                            performance.
+                          </div>
+                        </div>
+                        <div class="about-card">
+                          <div class="card-header">Mentorship & Teaching</div>
+                          <div class="card-body">
+                            Mentoring undergraduates through Knight Hacks UCF
+                            and teaching interactive STEM lessons, helping
+                            others develop technical and problem-solving skills.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <div class="title-block">
+                    <div class="tb-cell tb-col-span-2">
+                      <span class="tb-label">Project</span>
+                      <span class="tb-value">PORTFOLIO WEBSITE</span>
+                    </div>
+                    <div class="tb-cell">
+                      <span class="tb-label">Date</span>
+                      <span class="tb-value">2025-12-06</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-2">
+                      <span class="tb-label">Title</span>
+                      <span class="tb-value">EXPERIENCE / SUMMARY</span>
+                    </div>
+                    <div class="tb-cell">
+                      <span class="tb-label">Sheet</span>
+                      <span class="tb-value">02 / 04</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-3">
+                      <span class="tb-label">Author</span>
+                      <span class="tb-value">BENJAMIN MINGST</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-3">
+                      <span class="tb-label">Status</span>
+                      <span class="tb-value">APPROVED FOR RELEASE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experience Section Sheet -->
+              <div class="technical-sheet" id="experience">
+                <div class="sheet-border">
+                  <div class="sheet-ticks"></div>
+                  <div class="sheet-ticks-vertical"></div>
+                  <div class="sheet-marker-top">⬇</div>
+                  <div class="sheet-marker-bottom">⬆</div>
+                  <div class="sheet-marker-left">➡</div>
+                  <div class="sheet-marker-right">⬅</div>
+
+                  <section class="portfolio-section experience-section">
+                    <div class="doc-section-meta">
+                      <span class="doc-section-label">Section</span>
+                      <span class="doc-section-separator">/</span>
+                      <span class="doc-section-name">Experience Timeline</span>
+                      <span class="doc-section-spacer"></span>
+                      <span class="doc-chip">Roles</span>
+                      <span class="doc-chip doc-chip-muted">Chronological</span>
+                    </div>
+                    <h2 class="section-title">
+                      <span class="title-bracket">[</span>
+                      Experience
+                      <span class="title-bracket">]</span>
+                    </h2>
+                    <div class="section-content">
+                      <div class="timeline">
+                        <div class="timeline-item">
+                          <div class="timeline-marker"></div>
+                          <div class="timeline-content">
+                            <div class="timeline-header">
+                              <h3>IT Product Tester</h3>
+                              <span class="timeline-date"
+                                >Feb 2024 - Present</span
+                              >
+                            </div>
+                            <p class="timeline-company">
+                              Behavioral Health Link - Atlanta, GA
+                            </p>
+                            <p class="timeline-description">
+                              Identified and documented hundreds of bugs,
+                              including critical security vulnerabilities. Led
+                              two projects focused on AI integration and client
+                              safety. Produced comprehensive documentation for
+                              testing processes and feature designs.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item">
+                          <div class="timeline-marker"></div>
+                          <div class="timeline-content">
+                            <div class="timeline-header">
+                              <h3>WordPress Developer</h3>
+                              <span class="timeline-date"
+                                >May 2024 - Aug 2024</span
+                              >
+                            </div>
+                            <p class="timeline-company">
+                              Legacy Court Reporting - Palm Harbor, FL
+                            </p>
+                            <p class="timeline-description">
+                              Developed a responsive WordPress site, improving
+                              usability across devices. Collaborated with client
+                              to implement design updates aligned with branding.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item">
+                          <div class="timeline-marker"></div>
+                          <div class="timeline-content">
+                            <div class="timeline-header">
+                              <h3>Knight Hacks Mentor</h3>
+                              <span class="timeline-date"
+                                >Jan 2023 - Jan 2025</span
+                              >
+                            </div>
+                            <p class="timeline-company">
+                              Knight Hacks UCF - Orlando, FL
+                            </p>
+                            <p class="timeline-description">
+                              Mentored undergraduates weekly, helping them
+                              develop technical and professional skills in
+                              programming and software development.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="timeline-item">
+                          <div class="timeline-marker"></div>
+                          <div class="timeline-content">
+                            <div class="timeline-header">
+                              <h3>Science Discovery Teacher</h3>
+                              <span class="timeline-date"
+                                >June 2023 - July 2023</span
+                              >
+                            </div>
+                            <p class="timeline-company">
+                              Palm Harbor United Methodist Church - Palm Harbor,
+                              FL
+                            </p>
+                            <p class="timeline-description">
+                              Designed interactive STEM lessons on topics like
+                              gravitational waves and kinematics. Engaged
+                              students through hands-on projects such as rockets
+                              and light sabers.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <div class="title-block">
+                    <div class="tb-cell tb-col-span-2">
+                      <span class="tb-label">Project</span>
+                      <span class="tb-value">PORTFOLIO WEBSITE</span>
+                    </div>
+                    <div class="tb-cell">
+                      <span class="tb-label">Date</span>
+                      <span class="tb-value">2025-12-06</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-2">
+                      <span class="tb-label">Title</span>
+                      <span class="tb-value">EXPERIENCE / TIMELINE</span>
+                    </div>
+                    <div class="tb-cell">
+                      <span class="tb-label">Sheet</span>
+                      <span class="tb-value">03 / 04</span>
                     </div>
                     <div class="tb-cell tb-col-span-3">
                       <span class="tb-label">Author</span>
@@ -401,6 +645,15 @@
                   <div class="sheet-marker-right">⬅</div>
 
                   <section class="portfolio-section contact-section">
+                    <div class="doc-section-meta">
+                      <span class="doc-section-label">Section</span>
+                      <span class="doc-section-separator">/</span>
+                      <span class="doc-section-name">Contact</span>
+                      <span class="doc-section-spacer"></span>
+                      <span class="doc-chip doc-chip-outline"
+                        >Preferred Channels</span
+                      >
+                    </div>
                     <h2 class="section-title">
                       <span class="title-bracket">[</span>
                       Get In Touch
@@ -408,9 +661,10 @@
                     </h2>
                     <div class="section-content">
                       <p class="contact-intro">
-                        Interested in collaborating on your next engineering
-                        project? Let's connect and discuss how we can bring your
-                        ideas to life.
+                        I'm always open to discussing new opportunities, so feel
+                        free to reach out for collaborations or inquiries. Let's
+                        connect and explore how we can create impactful
+                        solutions together.
                       </p>
                       <div class="contact-methods">
                         <div class="contact-card">
@@ -430,7 +684,14 @@
                         <div class="contact-card">
                           <div class="contact-icon">🔗</div>
                           <div class="contact-label">Portfolio</div>
-                          <div class="contact-value">github.com/BenMingst</div>
+                          <div class="contact-value">
+                            <a
+                              href="https://github.com/BenMingst"
+                              target="_blank"
+                              rel="noreferrer"
+                              >github.com/BenMingst</a
+                            >
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -451,7 +712,7 @@
                     </div>
                     <div class="tb-cell">
                       <span class="tb-label">Sheet</span>
-                      <span class="tb-value">02 / 02</span>
+                      <span class="tb-value">04 / 04</span>
                     </div>
                     <div class="tb-cell tb-col-span-3">
                       <span class="tb-label">Author</span>

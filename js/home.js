@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setupSectionObserver();
   setupRibbonTabs();
   setupWindowControls();
+  setupBrowserCollapse();
 });
 
 /**
@@ -119,23 +120,26 @@ function setupSectionObserver() {
  * Later this can be extended to actually swap page content while keeping the shell.
  */
 function setupRibbonTabs() {
-  const tabs = document.querySelectorAll(".cad-ribbon-tab[data-page]");
+  const tabs = document.querySelectorAll(".cad-tab[data-tab][data-scroll]");
   if (!tabs.length) return;
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", function () {
-      const page = tab.getAttribute("data-page");
+      // Update visual active state
+      tabs.forEach((t) => {
+        t.classList.remove("cad-tab-active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("cad-tab-active");
+      tab.setAttribute("aria-selected", "true");
 
-      tabs.forEach((t) => t.classList.remove("cad-ribbon-tab--active"));
-      tab.classList.add("cad-ribbon-tab--active");
+      // Smooth scroll to the corresponding section
+      const targetSelector = tab.getAttribute("data-scroll");
+      if (!targetSelector) return;
 
-      // Placeholder for future routing between main pages.
-      if (page && page !== "home") {
-        console.info(
-          "[CAD shell] Ribbon page change requested:",
-          page,
-          "- content routing not implemented yet.",
-        );
+      const section = document.querySelector(targetSelector);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
   });
@@ -194,4 +198,58 @@ function setupWindowControls() {
       maxBtn.setAttribute('title', 'Enter fullscreen (F11)');
     }
   }
+}
+
+/**
+ * Setup collapsible left "Page" browser panel shared across pages.
+ */
+function setupBrowserCollapse() {
+  const main = document.querySelector(".cad-main");
+  const browser = document.querySelector(".cad-browser");
+  const viewport = document.querySelector(".cad-viewport");
+
+  if (!main || !browser || !viewport) {
+    return;
+  }
+
+  // Create / insert toggle handle between browser and viewport
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "cad-browser-toggle";
+  toggle.setAttribute("aria-label", "Toggle navigation panel");
+  toggle.setAttribute("aria-expanded", "true");
+  toggle.setAttribute("title", "Hide Page navigation");
+  toggle.textContent = "◀";
+
+  main.insertBefore(toggle, viewport);
+
+  const STORAGE_KEY = "cad-browser-collapsed";
+
+  function applyState(collapsed) {
+    if (collapsed) {
+      main.classList.add("cad-main--browser-collapsed");
+      toggle.textContent = "▶";
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("title", "Show Page navigation");
+    } else {
+      main.classList.remove("cad-main--browser-collapsed");
+      toggle.textContent = "◀";
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("title", "Hide Page navigation");
+    }
+  }
+
+  // Initial state from localStorage
+  const saved = window.localStorage
+    ? window.localStorage.getItem(STORAGE_KEY)
+    : null;
+  applyState(saved === "1");
+
+  toggle.addEventListener("click", () => {
+    const isCollapsed = main.classList.toggle("cad-main--browser-collapsed");
+    applyState(isCollapsed);
+    if (window.localStorage) {
+      window.localStorage.setItem(STORAGE_KEY, isCollapsed ? "1" : "0");
+    }
+  });
 }
