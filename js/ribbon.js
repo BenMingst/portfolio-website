@@ -44,14 +44,7 @@ function renderRibbon(activeTab = 'home') {
       <div class="cad-ribbon-tabs" role="tablist">
         ${tabsMarkup}
       </div>
-      <div class="cad-ribbon-search">
-        <input
-          class="cad-ribbon-search-input"
-          type="search"
-          placeholder="Search portfolio"
-          aria-label="Search portfolio"
-        />
-      </div>
+      
     </div>
 
     <div class="cad-ribbon-groups">

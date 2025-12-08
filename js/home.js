@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setupSectionObserver();
   setupRibbonTabs();
   setupWindowControls();
+  setupHelpModal();
   setupBrowserCollapse();
 });
 
@@ -146,28 +147,41 @@ function setupRibbonTabs() {
 }
 
 /**
- * Setup fullscreen toggle button
+ * Setup fullscreen toggle button.
+ *
+ * Simple behavior:
+ * - Uses the browser Fullscreen API (like pressing F11 for this tab).
+ * - No persistence: state is reset on navigation/refresh per browser rules.
  */
 function setupWindowControls() {
   const maxBtn = document.querySelector('.cad-window-btn-max');
-  
   if (!maxBtn) return;
 
   let isMaximized = false;
 
-  // Toggle fullscreen mode (like F11)
-  maxBtn.addEventListener('click', function() {
-    if (!isMaximized) {
-      // Enter fullscreen
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) { // Safari
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { // IE11
-        elem.msRequestFullscreen();
-      }
+  function syncUiWithFullscreen() {
+    isMaximized = !!(document.fullscreenElement ||
+                     document.webkitFullscreenElement ||
+                     document.msFullscreenElement);
+
+    if (isMaximized) {
+      maxBtn.classList.add('fullscreen-active');
+      maxBtn.setAttribute('aria-label', 'Exit fullscreen');
+      maxBtn.setAttribute('title', 'Exit fullscreen');
     } else {
+      maxBtn.classList.remove('fullscreen-active');
+      maxBtn.setAttribute('aria-label', 'Enter fullscreen');
+      maxBtn.setAttribute('title', 'Enter fullscreen');
+    }
+  }
+
+  function handleFullscreenChange() {
+    syncUiWithFullscreen();
+  }
+
+  // Toggle fullscreen mode (like F11)
+  maxBtn.addEventListener('click', function () {
+    if (isMaximized) {
       // Exit fullscreen
       if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -176,29 +190,29 @@ function setupWindowControls() {
       } else if (document.msExitFullscreen) { // IE11
         document.msExitFullscreen();
       }
+      return;
+    }
+
+    // Enter fullscreen
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { // Safari
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE11
+      elem.msRequestFullscreen();
     }
   });
 
   // Listen for fullscreen changes (including F11 or Escape key)
-  document.addEventListener('fullscreenchange', updateMaximizeState);
-  document.addEventListener('webkitfullscreenchange', updateMaximizeState);
-  document.addEventListener('msfullscreenchange', updateMaximizeState);
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.addEventListener('msfullscreenchange', handleFullscreenChange);
 
-  function updateMaximizeState() {
-    isMaximized = !!(document.fullscreenElement ||
-                     document.webkitFullscreenElement ||
-                     document.msFullscreenElement);
-    if (isMaximized) {
-      maxBtn.classList.add('fullscreen-active');
-      maxBtn.setAttribute('aria-label', 'Exit fullscreen');
-      maxBtn.setAttribute('title', 'Exit fullscreen (Esc)');
-    } else {
-      maxBtn.classList.remove('fullscreen-active');
-      maxBtn.setAttribute('aria-label', 'Enter fullscreen');
-      maxBtn.setAttribute('title', 'Enter fullscreen (F11)');
-    }
-  }
+  // Initial sync with the actual fullscreen state for this document
+  syncUiWithFullscreen();
 }
+
 
 /**
  * Setup collapsible left "Page" browser panel shared across pages.
@@ -250,6 +264,53 @@ function setupBrowserCollapse() {
     applyState(isCollapsed);
     if (window.localStorage) {
       window.localStorage.setItem(STORAGE_KEY, isCollapsed ? "1" : "0");
+    }
+  });
+}
+
+/**
+ * Setup "How to navigate" help modal on the home page.
+ */
+function setupHelpModal() {
+  const helpButton = document.getElementById("help-how-to-button");
+  const modal = document.getElementById("help-how-to-modal");
+  if (!helpButton || !modal) {
+    return;
+  }
+
+  const closeButtons = modal.querySelectorAll("[data-help-close]");
+
+  function openModal() {
+    modal.setAttribute("aria-hidden", "false");
+  }
+
+  function closeModal() {
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  helpButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    openModal();
+  });
+
+  closeButtons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      closeModal();
+    });
+  });
+
+  // Close when clicking backdrop (outside dialog)
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeModal();
     }
   });
 }

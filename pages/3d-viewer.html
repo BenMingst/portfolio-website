@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/3d-viewer.css" />
     <script src="../js/ribbon.js" defer></script>
     <script src="../js/home.js" defer></script>
+    <script src="../js/theme.js" defer></script>
   </head>
   <body class="cad-body" data-page="3d-viewer">
     <div class="cad-window">
@@ -26,10 +27,21 @@
               "
             />
           </div>
-          <div class="cad-quick-access">
-            <button class="cad-qa-btn" aria-label="New file"></button>
-            <button class="cad-qa-btn" aria-label="Open file"></button>
-            <button class="cad-qa-btn" aria-label="Save"></button>
+          <div class="cad-theme-toggle">
+            <button
+              class="cad-theme-toggle-btn"
+              type="button"
+              aria-pressed="false"
+              aria-label="Toggle dark mode"
+              data-theme-toggle
+            >
+              <span class="cad-theme-toggle-icon cad-theme-toggle-icon-sun"
+                >☀</span
+              >
+              <span class="cad-theme-toggle-icon cad-theme-toggle-icon-moon"
+                >🌙</span
+              >
+            </button>
           </div>
           <div class="cad-doc-info">
             <span class="cad-doc-name">3D Viewer</span>
@@ -112,14 +124,6 @@
             >
               3D Viewer
             </button>
-          </div>
-          <div class="cad-ribbon-search">
-            <input
-              class="cad-ribbon-search-input"
-              type="search"
-              placeholder="Search portfolio"
-              aria-label="Search portfolio"
-            />
           </div>
         </div>
 

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects | Benjamin Mingst Portfolio</title>
+    <link rel="stylesheet" href="styles/cad-shell.css" />
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="js/ribbon.js" defer></script>
+    <script src="js/home.js" defer></script>
+  </head>
+  <body class="cad-body" data-page="projects">
+    <div class="cad-window">
+      <!-- TITLE BAR -->
+      <header class="cad-titlebar">
+        <div class="cad-titlebar-left">
+          <div class="cad-app-icon" aria-label="Profile" title="Profile">
+            <img
+              src="media/headshot.jpg"
+              alt="Profile"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 3px;
+              "
+            />
+          </div>
+          <div class="cad-quick-access">
+            <button class="cad-qa-btn" aria-label="New file"></button>
+            <button class="cad-qa-btn" aria-label="Open file"></button>
+            <button class="cad-qa-btn" aria-label="Save"></button>
+          </div>
+          <div class="cad-doc-info">
+            <span class="cad-doc-name">Projects</span>
+          </div>
+        </div>
+        <div class="cad-titlebar-center">
+          <span class="cad-env-name">Benjamin Mingst</span>
+          <span class="cad-doc-path-separator">|</span>
+          <span class="cad-env-name">Portfolio</span>
+        </div>
+        <div class="cad-titlebar-right">
+          <button
+            class="cad-window-btn cad-window-btn-max"
+            aria-label="Toggle fullscreen"
+            title="Toggle fullscreen (F11)"
+          ></button>
+        </div>
+      </header>
+
+      <!-- RIBBON AREA -->
+      <div class="cad-ribbon-bar">
+        <div class="cad-ribbon-top">
+          <div class="cad-ribbon-tabs" role="tablist">
+            <button
+              class="cad-tab"
+              type="button"
+              data-tab="home"
+              role="tab"
+              aria-selected="false"
+              onclick="window.location.href='index.html'"
+            >
+              Home
+            </button>
+            <button
+              class="cad-tab"
+              type="button"
+              data-tab="experience"
+              role="tab"
+              aria-selected="false"
+              onclick="window.location.href='experience.html'"
+            >
+              Experience
+            </button>
+            <button
+              class="cad-tab cad-tab-active"
+              type="button"
+              data-tab="projects"
+              role="tab"
+              aria-selected="true"
+            >
+              Projects
+            </button>
+            <button
+              class="cad-tab"
+              type="button"
+              data-tab="skills"
+              role="tab"
+              aria-selected="false"
+              onclick="window.location.href='skills.html'"
+            >
+              Skills
+            </button>
+        
+
+        <div class="cad-ribbon-groups">
+          <!-- Help group -->
+          <section class="cad-ribbon-group" data-group="help" aria-label="Help">
+            <h2 class="cad-ribbon-group-title">Help</h2>
+            <div class="cad-ribbon-icons-row">
+              <button
+                type="button"
+                class="cad-ribbon-icon-btn"
+                onclick="window.location.href='index.html'"
+              >
+                <span class="cad-ribbon-icon-large">❔</span>
+                <span class="cad-ribbon-icon-label">How to navigate</span>
+              </button>
+              <button
+                type="button"
+                class="cad-ribbon-icon-btn"
+                data-scroll="#contact"
+              >
+                <span class="cad-ribbon-icon-large">💬</span>
+                <span class="cad-ribbon-icon-label">How to reach me</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Social group -->
+          <section
+            class="cad-ribbon-group"
+            data-group="social"
+            aria-label="Social links"
+          >
+            <h2 class="cad-ribbon-group-title">Social</h2>
+            <div class="cad-ribbon-icons-row">
+              <a
+                class="cad-ribbon-icon-btn"
+                href="https://www.youtube.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="cad-ribbon-icon-small">▶</span>
+                <span class="cad-ribbon-icon-label">YouTube</span>
+              </a>
+              <a
+                class="cad-ribbon-icon-btn"
+                href="https://linkedin.com/in/benjaminmingst"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="cad-ribbon-icon-small">in</span>
+                <span class="cad-ribbon-icon-label">LinkedIn</span>
+              </a>
+              <a
+                class="cad-ribbon-icon-btn"
+                href="https://github.com/benjaminmingst"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="cad-ribbon-icon-small">🐱</span>
+                <span class="cad-ribbon-icon-label">GitHub</span>
+              </a>
+              <a
+                class="cad-ribbon-icon-btn"
+                href="mailto:benjamin.mingst@email.com"
+              >
+                <span class="cad-ribbon-icon-small">✉</span>
+                <span class="cad-ribbon-icon-label">Email</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- Resources group -->
+          <section
+            class="cad-ribbon-group"
+            data-group="resources"
+            aria-label="Resources"
+          >
+            <h2 class="cad-ribbon-group-title">Resources</h2>
+            <div class="cad-ribbon-icons-row">
+              <a
+                class="cad-ribbon-icon-btn"
+                href="media/Benjamin_Mingst_Resume.pdf"
+                download
+              >
+                <span class="cad-ribbon-icon-large">📄</span>
+                <span class="cad-ribbon-icon-label">Resume / CV</span>
+              </a>
+              <button
+                type="button"
+                class="cad-ribbon-icon-btn"
+                data-scroll="#projects"
+              >
+                <span class="cad-ribbon-icon-large">📘</span>
+                <span class="cad-ribbon-icon-label">Case Studies</span>
+              </button>
+              <button
+                type="button"
+                class="cad-ribbon-icon-btn"
+                data-scroll="#contact"
+              >
+                <span class="cad-ribbon-icon-large">🤝</span>
+                <span class="cad-ribbon-icon-label">Hire Me</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Connect group -->
+          <section
+            class="cad-ribbon-group"
+            data-group="connect"
+            aria-label="Connect"
+          >
+            <h2 class="cad-ribbon-group-title">Connect</h2>
+            <div class="cad-ribbon-icons-row">
+              <a
+                class="cad-ribbon-icon-btn"
+                href="mailto:benjamin.mingst@email.com"
+              >
+                <span class="cad-ribbon-icon-large">✉</span>
+                <span class="cad-ribbon-icon-label">Email Me</span>
+              </a>
+              <a
+                class="cad-ribbon-icon-btn"
+                href="https://calendly.com/your-scheduling-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span class="cad-ribbon-icon-large">📞</span>
+                <span class="cad-ribbon-icon-label">Schedule a Call</span>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- MAIN AREA -->
+      <div class="cad-main">
+        <!-- Left panel -->
+        <aside class="cad-browser" aria-label="Page navigation">
+          <div class="cad-browser-header">
+            <span class="cad-browser-title">Page</span>
+          </div>
+          <div class="cad-browser-tree">
+            <div class="cad-tree-item cad-tree-root">Projects</div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#overview" class="cad-tree-link">Overview</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#projects" class="cad-tree-link">All Projects</a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Viewport -->
+        <main class="cad-viewport" aria-label="Workspace viewport">
+          <div class="cad-viewport-inner">
+            <div class="cad-portfolio-content">
+              <!-- CAD Overlays -->
+              <div class="cad-origin-triad" aria-hidden="true">
+                <span class="cad-axis cad-axis-x">X</span>
+                <span class="cad-axis cad-axis-y">Y</span>
+                <span class="cad-axis cad-axis-z">Z</span>
+              </div>
+
+              <div class="cad-viewcube" aria-hidden="true">
+                <div class="cad-viewcube-inner">
+                  <div class="cad-viewcube-face cad-viewcube-front">FRONT</div>
+                  <div class="cad-viewcube-face cad-viewcube-top">TOP</div>
+                  <div class="cad-viewcube-face cad-viewcube-right">RIGHT</div>
+                  <div class="cad-viewcube-face cad-viewcube-back">BACK</div>
+                  <div class="cad-viewcube-face cad-viewcube-bottom">
+                    BOTTOM
+                  </div>
+                  <div class="cad-viewcube-face cad-viewcube-left">LEFT</div>
+                </div>
+              </div>
+
+              <div class="cad-viewport-toolbar">
+                <button class="cad-viewport-tool" title="Pan"></button>
+                <button class="cad-viewport-tool" title="Zoom"></button>
+                <button class="cad-viewport-tool" title="Rotate"></button>
+                <button class="cad-viewport-tool" title="Fit"></button>
+                <button class="cad-viewport-tool" title="Home"></button>
+              </div>
+
+              <!-- Hero Section -->
+              <section id="overview" class="portfolio-section hero-section">
+                <div class="hero-content">
+                  <div class="hero-text" style="max-width: 100%">
+                    <h1 class="hero-title">
+                      <span class="title-line">My</span>
+                      <span class="title-name">Projects</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                      Engineering Excellence in Action
+                    </p>
+                    <p class="hero-description">
+                      From concept to production, these projects showcase my
+                      ability to deliver precision-engineered solutions across
+                      mechanical design, product development, and process
+                      optimization.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Projects Section -->
+              <section id="projects" class="portfolio-section projects-section">
+                <h2 class="section-title">
+                  <span class="title-bracket">[</span>
+                  Featured Projects
+                  <span class="title-bracket">]</span>
+                </h2>
+                <div class="section-content">
+                  <div class="projects-grid">
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">
+                          Advanced Manufacturing System
+                        </h3>
+                        <div class="project-tag">Mechanical Design</div>
+                      </div>
+                      <p class="project-description">
+                        Designed and implemented automated production line
+                        components, increasing throughput by 40% while
+                        maintaining precision tolerances.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">CAD Design</div>
+                        <div class="spec-item">FEA Analysis</div>
+                        <div class="spec-item">Prototyping</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">
+                          Product Development Initiative
+                        </h3>
+                        <div class="project-tag">Innovation</div>
+                      </div>
+                      <p class="project-description">
+                        Led product development from conceptual design through
+                        manufacturing, delivering market-ready solutions on time
+                        and under budget.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">SolidWorks</div>
+                        <div class="spec-item">DFM</div>
+                        <div class="spec-item">Testing</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">Engineering Optimization</h3>
+                        <div class="project-tag">Process Improvement</div>
+                      </div>
+                      <p class="project-description">
+                        Streamlined engineering workflows and implemented best
+                        practices, reducing design iteration time by 30%.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">Workflow Design</div>
+                        <div class="spec-item">Automation</div>
+                        <div class="spec-item">Training</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">
+                          Automated Assembly Fixture
+                        </h3>
+                        <div class="project-tag">Tooling Design</div>
+                      </div>
+                      <p class="project-description">
+                        Created custom fixtures and tooling to improve assembly
+                        quality and reduce production time by 25%.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">SolidWorks</div>
+                        <div class="spec-item">GD&T</div>
+                        <div class="spec-item">Manufacturing</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">Thermal Management System</h3>
+                        <div class="project-tag">Analysis & Design</div>
+                      </div>
+                      <p class="project-description">
+                        Developed thermal control solutions using CFD analysis
+                        and iterative prototyping for high-performance
+                        applications.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">CFD</div>
+                        <div class="spec-item">Heat Transfer</div>
+                        <div class="spec-item">Validation</div>
+                      </div>
+                    </div>
+
+                    <div class="project-card">
+                      <div class="project-header">
+                        <h3 class="project-title">Precision Machining Jig</h3>
+                        <div class="project-tag">Fixture Design</div>
+                      </div>
+                      <p class="project-description">
+                        Designed and validated CNC machining fixtures ensuring
+                        repeatability within ±0.001" tolerance.
+                      </p>
+                      <div class="project-specs">
+                        <div class="spec-item">Precision Design</div>
+                        <div class="spec-item">CNC</div>
+                        <div class="spec-item">QC</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- STATUS BAR -->
+      <footer class="cad-status-bar">
+        <span class="cad-status-left">Open to work</span>
+        <span class="cad-status-right">1 | 7</span>
+      </footer>
+    </div>
+  </body>
+</html>

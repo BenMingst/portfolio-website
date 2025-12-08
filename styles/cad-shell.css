@@ -94,13 +94,57 @@ body {
   gap: 2px;
 }
 
-.cad-qa-btn {
-  width: 14px;
-  height: 14px;
-  border-radius: 2px;
+/* Theme toggle replaces legacy quick access buttons */
+.cad-theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.cad-theme-toggle-btn {
+  width: 42px;
+  height: 18px;
+  border-radius: 999px;
   border: 1px solid #c1c5d3;
   background: linear-gradient(to bottom, #fdfefe, #e1e4ef);
-  padding: 0;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 1px rgba(15, 23, 42, 0.25);
+  cursor: pointer;
+}
+
+.cad-theme-toggle-icon {
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+}
+
+.cad-theme-toggle-icon-sun {
+  color: #f59e0b;
+  opacity: 1;
+}
+
+.cad-theme-toggle-icon-moon {
+  color: #38bdf8;
+  opacity: 0.4;
+}
+
+/* Emphasize moon icon in dark mode, sun in light mode */
+.theme-dark .cad-theme-toggle-icon-sun {
+  opacity: 0.4;
+}
+
+.theme-dark .cad-theme-toggle-icon-moon {
+  opacity: 1;
+}
+
+.theme-dark .cad-theme-toggle-btn {
+  border-color: #1e293b;
+  background: linear-gradient(to bottom, #020617, #020617);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
 }
 
 /* Document info */
@@ -150,71 +194,37 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* Fullscreen button - 4 arrows pointing out (expand) */
-.cad-window-btn-max::before,
-.cad-window-btn-max::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid #4b4f5c;
-  border-right: none;
-  border-bottom: none;
-}
-
-.cad-window-btn-max::before {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.cad-window-btn-max::after {
-  transform: translate(-50%, -50%) rotate(180deg);
-}
-
-/* Arrow tips for expand icon */
+/* Fullscreen button icon */
 .cad-window-btn-max {
   --arrow-color: #4b4f5c;
 }
 
-/* Create corner arrows using gradients and box-shadow */
+/* Base: four arrows pointing OUT to the corners (enter fullscreen) */
 .cad-window-btn-max::before {
-  box-shadow:
-    -3px -3px 0 0 var(--arrow-color),
-    -2px -3px 0 0 var(--arrow-color),
-    -3px -2px 0 0 var(--arrow-color);
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20stroke='rgb(75,79,92)'%20stroke-width='2.1'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'%3E%3Cpolyline%20points='9%203%203%203%203%209'/%3E%3Cpolyline%20points='15%203%2021%203%2021%209'/%3E%3Cpolyline%20points='3%2015%203%2021%209%2021'/%3E%3Cpolyline%20points='21%2015%2021%2021%2015%2021'/%3E%3C/svg%3E");
 }
 
 .cad-window-btn-max::after {
-  box-shadow:
-    3px 3px 0 0 var(--arrow-color),
-    2px 3px 0 0 var(--arrow-color),
-    3px 2px 0 0 var(--arrow-color);
+  content: none;
 }
 
-.cad-window-btn-max:hover {
-  --arrow-color: #222;
+.cad-window-btn-max:hover::before {
+  filter: brightness(0.2);
 }
 
-.cad-window-btn-max:hover::before,
-.cad-window-btn-max:hover::after {
-  border-color: #222;
-}
-
-/* When in fullscreen, flip the arrows inward (compress) */
+/* When in fullscreen, show opposite arrows pointing IN toward center (exit fullscreen) */
 .cad-window-btn-max.fullscreen-active::before {
-  box-shadow:
-    3px 3px 0 0 var(--arrow-color),
-    2px 3px 0 0 var(--arrow-color),
-    3px 2px 0 0 var(--arrow-color);
-}
-
-.cad-window-btn-max.fullscreen-active::after {
-  box-shadow:
-    -3px -3px 0 0 var(--arrow-color),
-    -2px -3px 0 0 var(--arrow-color),
-    -3px -2px 0 0 var(--arrow-color);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20stroke='rgb(75,79,92)'%20stroke-width='2.1'%20stroke-linecap='round'%20stroke-linejoin='round'%20fill='none'%3E%3Cpolyline%20points='10%208%208%208%208%2010'/%3E%3Cpolyline%20points='14%208%2016%208%2016%2010'/%3E%3Cpolyline%20points='8%2014%208%2016%2010%2016'/%3E%3Cpolyline%20points='16%2014%2016%2016%2014%2016'/%3E%3C/svg%3E");
 }
 
 /* RIBBON BAR */
@@ -716,6 +726,118 @@ body {
   padding: 2px 4px 0;
 }
 
+/* MODAL / DIALOG (Help - How to Navigate) */
+
+.cad-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.cad-modal-backdrop[aria-hidden="true"] {
+  display: none;
+}
+
+.cad-modal {
+  width: 520px;
+  max-width: calc(100% - 48px);
+  background: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  box-shadow:
+    0 16px 40px rgba(15, 23, 42, 0.35),
+    0 0 0 1px rgba(148, 163, 184, 0.4);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #111827;
+}
+
+.cad-modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, #f9fafb, #eef2ff);
+}
+
+.cad-modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.cad-modal-close-btn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.cad-modal-close-btn:hover {
+  color: #111827;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 3px;
+}
+
+.cad-modal-body {
+  padding: 16px 18px 8px;
+  line-height: 1.6;
+}
+
+.cad-modal-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.cad-modal-list li + li {
+  margin-top: 6px;
+}
+
+.cad-modal-footer {
+  padding: 10px 16px 12px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  background: #f9fafb;
+}
+
+.cad-modal-primary-btn {
+  min-width: 96px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1px solid #4f46e5;
+  background: linear-gradient(to bottom, #6366f1, #4f46e5);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 1px 3px rgba(15, 23, 42, 0.3);
+}
+
+.cad-modal-primary-btn:hover {
+  background: linear-gradient(to bottom, #4f46e5, #4338ca);
+  border-color: #4338ca;
+}
+
+.cad-modal-primary-btn:active {
+  box-shadow:
+    0 0 0 1px rgba(30, 64, 175, 0.6) inset,
+    0 0 0 transparent;
+}
+
 .cad-bottom-tabs-list {
   display: flex;
   gap: 2px;
@@ -758,6 +880,272 @@ input {
 
 button {
   cursor: default;
+}
+
+/* Dark theme overrides
+   ------------------------------------------------------------------ */
+
+.theme-dark .cad-body {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+/* Shell surfaces */
+.theme-dark .cad-window {
+  background: #020617;
+}
+
+.theme-dark .cad-titlebar {
+  background: linear-gradient(to bottom, #020617, #0b1120);
+  border-bottom-color: #1e293b;
+  color: #e5e7eb;
+}
+
+.theme-dark .cad-titlebar-center {
+  color: #e5e7eb;
+}
+
+/* Try to brighten fullscreen icon in dark mode */
+.theme-dark .cad-window-btn-max::before {
+  filter: invert(1) brightness(1.5);
+}
+
+/* Ribbon */
+.theme-dark .cad-ribbon-bar {
+  background: #020617;
+  border-bottom-color: #1e293b;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.9);
+}
+
+.theme-dark .cad-tab {
+  color: #cbd5f5;
+}
+
+.theme-dark .cad-tab-active {
+  background: #0f172a;
+  border-color: #1e293b;
+  border-bottom-color: #0f172a;
+  color: #e5e7eb;
+}
+
+.theme-dark .cad-ribbon-groups {
+  background: #020617;
+  border-top-color: #1e293b;
+}
+
+.theme-dark .cad-ribbon-group {
+  background: #020617;
+  border-color: #1e293b;
+}
+
+.theme-dark .cad-ribbon-group-title {
+  color: #9ca3af;
+}
+
+.theme-dark .cad-ribbon-icon-btn {
+  background: linear-gradient(to bottom, #020617, #020617);
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.theme-dark .cad-ribbon-icon-btn:hover {
+  background: #020617;
+  border-color: #38bdf8;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.9);
+}
+
+/* Sidebar */
+.theme-dark .cad-browser {
+  background: linear-gradient(to bottom, #020617, #020617);
+  border-right-color: #1e293b;
+}
+
+.theme-dark .cad-browser-header {
+  border-bottom-color: #1e293b;
+}
+
+.theme-dark .cad-browser-title {
+  color: #e5e7eb;
+}
+
+.theme-dark .cad-tree-item {
+  color: #e5e7eb;
+}
+
+.theme-dark .cad-tree-item::before {
+  border-color: #64748b;
+  background: #020617;
+}
+
+.theme-dark .cad-tree-link:hover {
+  background: rgba(56, 189, 248, 0.16);
+  color: #38bdf8;
+}
+
+/* Viewport */
+.theme-dark .cad-viewport-inner {
+  background: radial-gradient(
+    circle at 20% 0,
+    #0b1120 0,
+    #020617 40%,
+    #020617 70%,
+    #000000 100%
+  );
+}
+
+/* Status bar & bottom tabs */
+.theme-dark .cad-status-bar,
+.theme-dark .cad-bottom-tabs {
+  background: #020617;
+  border-top-color: #1e293b;
+  color: #e5e7eb;
+}
+
+.theme-dark .cad-status-left {
+  border-right-color: #1e293b;
+}
+
+/* Sheets and technical drawing elements */
+.theme-dark .cad-portfolio-content {
+  background: #020617;
+}
+
+.theme-dark .technical-sheet {
+  background-color: #020617;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.85);
+}
+
+.theme-dark .sheet-border {
+  border-color: #e5e7eb;
+}
+
+.theme-dark .sheet-ticks::before,
+.theme-dark .sheet-ticks::after {
+  background-image: linear-gradient(to right, #4b5563 1px, transparent 1px);
+}
+
+.theme-dark .sheet-ticks-vertical::before,
+.theme-dark .sheet-ticks-vertical::after {
+  background-image: linear-gradient(to bottom, #4b5563 1px, transparent 1px);
+}
+
+.theme-dark .sheet-marker-top,
+.theme-dark .sheet-marker-bottom,
+.theme-dark .sheet-marker-left,
+.theme-dark .sheet-marker-right {
+  color: #6b7280;
+}
+
+/* Title block in dark mode */
+.theme-dark .title-block {
+  background: #020617;
+  border-color: #e5e7eb;
+}
+
+.theme-dark .tb-cell {
+  border-color: #4b5563;
+}
+
+.theme-dark .tb-label {
+  color: #9ca3af;
+}
+
+.theme-dark .tb-value {
+  color: #e5e7eb;
+}
+
+/* Typography */
+.theme-dark .section-title,
+.theme-dark .title-name,
+.theme-dark .hero-title {
+  color: #e5e7eb;
+}
+
+.theme-dark .title-line,
+.theme-dark .hero-subtitle {
+  color: #9ca3af;
+}
+
+.theme-dark .hero-description,
+.theme-dark .card-body,
+.theme-dark .timeline-description,
+.theme-dark .project-description,
+.theme-dark .contact-intro {
+  color: #e5e7eb;
+}
+
+.theme-dark .doc-section-meta {
+  color: #9ca3af;
+}
+
+.theme-dark .doc-section-label {
+  color: #e5e7eb;
+}
+
+.theme-dark .doc-section-name {
+  color: #e5e7eb;
+}
+
+/* Chips */
+.theme-dark .doc-chip {
+  background: #020617;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+.theme-dark .doc-chip-muted {
+  background: #020617;
+  border-color: #4b5563;
+  color: #9ca3af;
+}
+
+/* Hero stats */
+.theme-dark .stat-item {
+  background: transparent;
+  border-color: #e5e7eb;
+  box-shadow: 0 2px 0 rgba(15, 23, 42, 1);
+}
+
+.theme-dark .stat-value,
+.theme-dark .stat-label {
+  color: #e5e7eb;
+}
+
+/* Cards and grids */
+.theme-dark .about-card,
+.theme-dark .project-card,
+.theme-dark .timeline-content,
+.theme-dark .skill-category,
+.theme-dark .contact-card {
+  background: #020617;
+  border-color: #1f2937;
+}
+
+.theme-dark .about-card::before {
+  background: linear-gradient(to right, #38bdf8, #0ea5e9);
+}
+
+.theme-dark .project-card::before {
+  background: linear-gradient(to bottom, #38bdf8, #0ea5e9);
+}
+
+.theme-dark .project-title,
+.theme-dark .timeline-header h3,
+.theme-dark .skill-category-title,
+.theme-dark .contact-label {
+  color: #e5e7eb;
+}
+
+.theme-dark .project-specs .spec-item,
+.theme-dark .skill-item {
+  background: #020617;
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+/* Contact values */
+.theme-dark .contact-value {
+  color: #e5e7eb;
 }
 
 /* Portfolio Content Styles */
@@ -1141,6 +1529,53 @@ button {
 }
 
 /* About Section */
+.about-section {
+  padding: 60px 80px 40px;
+  border: none;
+}
+
+.about-intro {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #3c4d66;
+  margin: 0 0 32px;
+  max-width: 720px;
+}
+
+.about-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 8px;
+}
+
+.about-column {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.about-subtitle {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c3e5a;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.about-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5d7a;
+}
+
+.about-list li + li {
+  margin-top: 6px;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1280,6 +1715,222 @@ button {
   bottom: 0;
   width: 3px;
   background: linear-gradient(to bottom, #5a6d8f, #b8bfd3);
+}
+
+/* Experience Matrix (Experience page summary sheet) */
+.experience-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 28px;
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.experience-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.experience-subtitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e5a;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Left “Experience Map” ladder */
+.experience-ladder {
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  padding: 18px 20px;
+  background: #fbfcff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.experience-ladder-item {
+  position: relative;
+  padding-left: 16px;
+}
+
+.experience-ladder-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(to bottom, #5a6d8f, #b8bfd3);
+}
+
+.experience-ladder-label {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.experience-ladder-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.experience-ladder-chip {
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid #c4cbe0;
+  background: #e4e9f3;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #374151;
+}
+
+.experience-ladder-note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #4a5d7a;
+}
+
+/* Right column bullets */
+.experience-bullets {
+  margin: 4px 0 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4a5d7a;
+}
+
+.experience-bullets li + li {
+  margin-top: 6px;
+}
+
+/* Spec-style table for roles */
+.experience-spec-table {
+  margin-top: 4px;
+  border: 1px solid #d4d4d8;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+}
+
+.experience-spec-row {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr 1.3fr 1.2fr;
+  border-top: 1px solid #d4d4d8;
+}
+
+.experience-spec-row:first-child {
+  border-top: none;
+}
+
+.experience-spec-row-header {
+  background: #e4e9f3;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.experience-spec-col {
+  padding: 6px 8px;
+  border-right: 1px solid #d4d4d8;
+}
+
+.experience-spec-col:last-child {
+  border-right: none;
+}
+
+.experience-spec-col.role {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.experience-spec-col.domain {
+  color: #374151;
+}
+
+.experience-spec-col.scope,
+.experience-spec-col.tools {
+  color: #4b5563;
+}
+
+/* Dark theme tweaks for Experience Matrix */
+.theme-dark .experience-ladder {
+  background: #020617;
+  border-color: #1f2937;
+}
+
+.theme-dark .experience-ladder-item::before {
+  background: linear-gradient(to bottom, #38bdf8, #0ea5e9);
+}
+
+.theme-dark .experience-ladder-label {
+  color: #e5e7eb;
+}
+
+.theme-dark .experience-ladder-chip {
+  background: #020617;
+  border-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.theme-dark .experience-ladder-note,
+.theme-dark .experience-bullets {
+  color: #e5e7eb;
+}
+
+.theme-dark .experience-spec-table {
+  border-color: #1f2937;
+}
+
+.theme-dark .experience-spec-row-header {
+  background: #020617;
+}
+
+.theme-dark .experience-spec-col {
+  border-right-color: #1f2937;
+}
+
+.theme-dark .experience-spec-col.role,
+.theme-dark .experience-spec-col.domain,
+.theme-dark .experience-spec-col.scope,
+.theme-dark .experience-spec-col.tools {
+  color: #e5e7eb;
+}
+
+/* Responsive adjustments for Experience Matrix */
+@media (max-width: 900px) {
+  .experience-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .experience-spec-row {
+    grid-template-columns: 1.1fr 1.3fr;
+    grid-auto-rows: auto;
+  }
+
+  .experience-spec-col.scope,
+  .experience-spec-col.tools {
+    border-top: 1px solid #d4d4d8;
+    grid-column: 1 / -1;
+  }
+
+  .theme-dark .experience-spec-col.scope,
+  .theme-dark .experience-spec-col.tools {
+    border-top-color: #1f2937;
+  }
 }
 
 .timeline-item {
@@ -1628,4 +2279,190 @@ button {
 .cad-body:not([data-page="3d-viewer"]) .cad-viewcube,
 .cad-body:not([data-page="3d-viewer"]) .cad-viewport-toolbar {
   display: none !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive layout                                                  */
+/* ------------------------------------------------------------------ */
+
+/* Medium screens */
+@media (max-width: 900px) {
+  .cad-titlebar {
+    padding-inline: 4px;
+  }
+
+  .cad-titlebar-center {
+    font-size: 10px;
+  }
+
+  .cad-ribbon-groups {
+    flex-wrap: wrap;
+  }
+
+  .technical-sheet {
+    padding: 24px;
+  }
+
+  .sheet-border {
+    padding: 24px;
+  }
+
+  .title-block {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .hero-section {
+    padding: 40px 24px 32px;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .hero-text {
+    width: 100%;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .headshot-image {
+    width: 220px;
+    height: 220px;
+  }
+
+  .hero-stats {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .stat-item {
+    min-width: 0;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .timeline {
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    left: 4px;
+  }
+
+  .timeline-item {
+    padding-left: 20px;
+    margin-bottom: 24px;
+  }
+
+  .timeline-marker {
+    left: -20px;
+  }
+
+  .projects-grid {
+    gap: 20px;
+  }
+}
+
+/* Small screens / mobile */
+@media (max-width: 768px) {
+  .cad-titlebar {
+    padding-inline: 2px;
+  }
+
+  .cad-titlebar-center {
+    display: none;
+  }
+
+  .cad-ribbon-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cad-ribbon-tabs {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  /* Hide sidebar and ribbon groups, keep tech-doc content styling */
+  .cad-ribbon-groups {
+    display: none;
+  }
+
+  .cad-browser,
+  .cad-browser-toggle {
+    display: none;
+  }
+
+  .cad-main {
+    display: block;
+  }
+
+  /* Keep technical sheets, just tighten spacing so they fit on mobile */
+  .cad-portfolio-content {
+    scroll-snap-type: none;
+    padding: 8px 4px 16px;
+  }
+
+  .technical-sheet {
+    padding: 24px 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.25);
+  }
+
+  .sheet-border {
+    padding: 20px;
+  }
+
+  .hero-section {
+    padding: 24px 16px 24px;
+  }
+
+  .headshot-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-card {
+    padding: 20px;
+  }
+
+  .timeline {
+    padding-left: 16px;
+  }
+
+  .timeline-item {
+    padding-left: 16px;
+  }
+
+  .contact-methods {
+    grid-template-columns: 1fr;
+  }
+
+  /* Allow wrapping for labels, chips, and long values on narrow screens */
+  .project-tag,
+  .doc-chip {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .contact-value {
+    word-break: break-word;
+  }
 }

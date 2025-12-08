@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
     <script src="js/ribbon.js" defer></script>
     <script src="js/home.js" defer></script>
+    <script src="js/theme.js" defer></script>
   </head>
   <body class="cad-body" data-page="home">
     <div class="cad-window">
@@ -26,10 +27,21 @@
               "
             />
           </div>
-          <div class="cad-quick-access">
-            <button class="cad-qa-btn" aria-label="New file"></button>
-            <button class="cad-qa-btn" aria-label="Open file"></button>
-            <button class="cad-qa-btn" aria-label="Save"></button>
+          <div class="cad-theme-toggle">
+            <button
+              class="cad-theme-toggle-btn"
+              type="button"
+              aria-pressed="false"
+              aria-label="Toggle dark mode"
+              data-theme-toggle
+            >
+              <span class="cad-theme-toggle-icon cad-theme-toggle-icon-sun"
+                >☀</span
+              >
+              <span class="cad-theme-toggle-icon cad-theme-toggle-icon-moon"
+                >🌙</span
+              >
+            </button>
           </div>
         </div>
         <div class="cad-titlebar-center">
@@ -110,14 +122,6 @@
               3D Viewer
             </button>
           </div>
-          <div class="cad-ribbon-search">
-            <input
-              class="cad-ribbon-search-input"
-              type="search"
-              placeholder="Search portfolio"
-              aria-label="Search portfolio"
-            />
-          </div>
         </div>
 
         <div class="cad-ribbon-groups">
@@ -128,7 +132,7 @@
               <button
                 type="button"
                 class="cad-ribbon-icon-btn"
-                data-scroll="#overview"
+                id="help-how-to-button"
               >
                 <span class="cad-ribbon-icon-large">❔</span>
                 <span class="cad-ribbon-icon-label">How to navigate</span>
@@ -242,7 +246,10 @@
               <a href="#overview" class="cad-tree-link">Overview</a>
             </div>
             <div class="cad-tree-item cad-tree-child">
-              <a href="#about" class="cad-tree-link">About</a>
+              <a href="#about-me" class="cad-tree-link">About Me</a>
+            </div>
+            <div class="cad-tree-item cad-tree-child">
+              <a href="#about-site" class="cad-tree-link">About This Site</a>
             </div>
             <div class="cad-tree-item cad-tree-child">
               <a href="#projects" class="cad-tree-link">Projects</a>
@@ -252,9 +259,6 @@
             </div>
             <div class="cad-tree-item cad-tree-child">
               <a href="#skills" class="cad-tree-link">Skills</a>
-            </div>
-            <div class="cad-tree-item cad-tree-child">
-              <a href="#contact" class="cad-tree-link">Contact</a>
             </div>
           </div>
         </aside>
@@ -376,7 +380,7 @@
                     </div>
                     <div class="tb-cell">
                       <span class="tb-label">Sheet</span>
-                      <span class="tb-value">01 / 02</span>
+                      <span class="tb-value">01 / 04</span>
                     </div>
                     <div class="tb-cell tb-col-span-3">
                       <span class="tb-label">Author</span>
@@ -390,8 +394,8 @@
                 </div>
               </div>
 
-              <!-- Contact Section Sheet -->
-              <div class="technical-sheet" id="contact">
+              <!-- About Me Section Sheet -->
+              <div class="technical-sheet" id="about-me-doc">
                 <div class="sheet-border">
                   <div class="sheet-ticks"></div>
                   <div class="sheet-ticks-vertical"></div>
@@ -400,37 +404,58 @@
                   <div class="sheet-marker-left">➡</div>
                   <div class="sheet-marker-right">⬅</div>
 
-                  <section class="portfolio-section contact-section">
-                    <h2 class="section-title">
+                  <section
+                    class="portfolio-section about-section"
+                    id="about-me-section"
+                  >
+                    <h2 class="section-title" id="about-me">
                       <span class="title-bracket">[</span>
-                      Get In Touch
+                      About Me
                       <span class="title-bracket">]</span>
                     </h2>
                     <div class="section-content">
-                      <p class="contact-intro">
-                        Interested in collaborating on your next engineering
-                        project? Let's connect and discuss how we can bring your
-                        ideas to life.
+                      <p class="about-intro">
+                        I've spent the last 9+ years working in Autodesk
+                        Inventor and 3D modeling, and I built this portfolio to
+                        feel like the CAD workspace I know best. I bridge
+                        software engineering, testing, and technical
+                        communication to turn ambiguous problems into reliable
+                        systems and clear documentation.
                       </p>
-                      <div class="contact-methods">
-                        <div class="contact-card">
-                          <div class="contact-icon">📧</div>
-                          <div class="contact-label">Email</div>
-                          <div class="contact-value">
-                            benjaminmingst@outlook.com
-                          </div>
+                      <div class="about-columns">
+                        <div class="about-column">
+                          <h3 class="about-subtitle">What I do</h3>
+                          <ul class="about-list">
+                            <li>
+                              Test and validate software and hardware in
+                              real-world conditions
+                            </li>
+                            <li>
+                              Design and build web experiences with a focus on
+                              usability
+                            </li>
+                            <li>
+                              Collaborate across engineering, product, and
+                              non-technical teams
+                            </li>
+                          </ul>
                         </div>
-                        <div class="contact-card">
-                          <div class="contact-icon">💼</div>
-                          <div class="contact-label">LinkedIn</div>
-                          <div class="contact-value">
-                            linkedin.com/in/benjamin-mingst
-                          </div>
-                        </div>
-                        <div class="contact-card">
-                          <div class="contact-icon">🔗</div>
-                          <div class="contact-label">Portfolio</div>
-                          <div class="contact-value">github.com/BenMingst</div>
+                        <div class="about-column">
+                          <h3 class="about-subtitle">Currently focused on</h3>
+                          <ul class="about-list">
+                            <li>
+                              AI-assisted tools that improve safety and
+                              productivity
+                            </li>
+                            <li>
+                              Security, automation, and reliability in web
+                              applications
+                            </li>
+                            <li>
+                              Mentoring peers and making complex tech easier to
+                              understand
+                            </li>
+                          </ul>
                         </div>
                       </div>
                     </div>
@@ -447,11 +472,105 @@
                     </div>
                     <div class="tb-cell tb-col-span-2">
                       <span class="tb-label">Title</span>
-                      <span class="tb-value">CONTACT INFORMATION</span>
+                      <span class="tb-value">HOME / ABOUT ME</span>
                     </div>
                     <div class="tb-cell">
                       <span class="tb-label">Sheet</span>
-                      <span class="tb-value">02 / 02</span>
+                      <span class="tb-value">02 / 04</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-3">
+                      <span class="tb-label">Author</span>
+                      <span class="tb-value">BENJAMIN MINGST</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-3">
+                      <span class="tb-label">Status</span>
+                      <span class="tb-value">APPROVED FOR RELEASE</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- About This Site Section Sheet -->
+              <div class="technical-sheet" id="about-site-doc">
+                <div class="sheet-border">
+                  <div class="sheet-ticks"></div>
+                  <div class="sheet-ticks-vertical"></div>
+                  <div class="sheet-marker-top">⬇</div>
+                  <div class="sheet-marker-bottom">⬆</div>
+                  <div class="sheet-marker-left">➡</div>
+                  <div class="sheet-marker-right">⬅</div>
+
+                  <section
+                    class="portfolio-section about-section"
+                    id="about-site-section"
+                  >
+                    <h2 class="section-title" id="about-site">
+                      <span class="title-bracket">[</span>
+                      About This Site
+                      <span class="title-bracket">]</span>
+                    </h2>
+                    <div class="section-content">
+                      <p class="about-intro">
+                        This portfolio is intentionally designed to feel like an
+                        Autodesk Inventor environment: a CAD-style window with
+                        ribbons, a browser tree, technical sheets, and title
+                        blocks.
+                      </p>
+                      <div class="about-columns">
+                        <div class="about-column">
+                          <h3 class="about-subtitle">Design choices</h3>
+                          <ul class="about-list">
+                            <li>
+                              CAD-style sheets, rulers, and title blocks to
+                              present projects like engineering drawings.
+                            </li>
+                            <li>
+                              Ribbon tabs and a browser tree inspired by
+                              Inventor’s interface.
+                            </li>
+                            <li>
+                              Layout tuned to feel familiar to anyone who has
+                              used professional 3D CAD tools.
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="about-column">
+                          <h3 class="about-subtitle">Why it matters</h3>
+                          <ul class="about-list">
+                            <li>
+                              Connects my 9+ years of Inventor and 3D modeling
+                              experience to web development.
+                            </li>
+                            <li>
+                              Shows how I think about UX for technical and
+                              engineering audiences.
+                            </li>
+                            <li>
+                              Sets the stage for interactive 3D content in the
+                              3D Viewer section.
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <div class="title-block">
+                    <div class="tb-cell tb-col-span-2">
+                      <span class="tb-label">Project</span>
+                      <span class="tb-value">PORTFOLIO WEBSITE</span>
+                    </div>
+                    <div class="tb-cell">
+                      <span class="tb-label">Date</span>
+                      <span class="tb-value">2025-12-06</span>
+                    </div>
+                    <div class="tb-cell tb-col-span-2">
+                      <span class="tb-label">Title</span>
+                      <span class="tb-value">HOME / ABOUT THIS SITE</span>
+                    </div>
+                    <div class="tb-cell">
+                      <span class="tb-label">Sheet</span>
+                      <span class="tb-value">03 / 04</span>
                     </div>
                     <div class="tb-cell tb-col-span-3">
                       <span class="tb-label">Author</span>
@@ -467,6 +586,62 @@
             </div>
           </div>
         </main>
+      </div>
+
+      <!-- HOW TO NAVIGATE MODAL -->
+      <div class="cad-modal-backdrop" id="help-how-to-modal" aria-hidden="true">
+        <div
+          class="cad-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="help-how-to-title"
+        >
+          <header class="cad-modal-header">
+            <h2 class="cad-modal-title" id="help-how-to-title">
+              How to navigate this portfolio
+            </h2>
+            <button
+              type="button"
+              class="cad-modal-close-btn"
+              data-help-close
+              aria-label="Close help dialog"
+            >
+              ✕
+            </button>
+          </header>
+          <div class="cad-modal-body">
+            <p>
+              This site is designed like a CAD workspace. Here are a few tips:
+            </p>
+            <ul class="cad-modal-list">
+              <li>
+                <strong>Top ribbon tabs</strong> open different pages like
+                Experience, Projects, Skills, and more.
+              </li>
+              <li>
+                <strong>Left “Page” panel</strong> lets you jump to sections
+                such as Overview and Contact.
+              </li>
+              <li>
+                <strong>Scroll</strong> through the technical sheets to read the
+                content.
+              </li>
+              <li>
+                <strong>Toggle fullscreen</strong> with the button in the
+                top-right title bar.
+              </li>
+              <li>
+                <strong>Use the 3D Viewer tab</strong> to explore interactive 3D
+                content.
+              </li>
+            </ul>
+          </div>
+          <footer class="cad-modal-footer">
+            <button type="button" class="cad-modal-primary-btn" data-help-close>
+              Got it
+            </button>
+          </footer>
+        </div>
       </div>
 
       <!-- STATUS BAR -->

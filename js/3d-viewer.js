@@ -1,10 +1,20 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 function main() {
     const canvas = document.querySelector('#c');
     // Enable alpha to let the CSS background show through
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas, alpha: true });
+
+    // Improve visual quality: high DPI, tone mapping, and soft shadows
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.physicallyCorrectLights = true;
     
     const scene = new THREE.Scene();
     // No background color set on scene to allow transparency
@@ -20,52 +30,95 @@ function main() {
     controls.minDistance = 2;
     controls.maxDistance = 20;
 
-    // Add some lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambientLight);
+        // --- Lighting Setup ---
+        // Soft ambient/sky-ground light
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x222222, 0.8);
+        hemiLight.position.set(0, 5, 0);
+        scene.add(hemiLight);
+    
+        // Main directional "sun" light with soft shadows
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        dirLight.position.set(5, 10, 7);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.set(2048, 2048);
+        dirLight.shadow.camera.near = 0.5;
+        dirLight.shadow.camera.far = 50;
+        dirLight.shadow.camera.left = -10;
+        dirLight.shadow.camera.right = 10;
+        dirLight.shadow.camera.top = 10;
+        dirLight.shadow.camera.bottom = -10;
+        scene.add(dirLight);
+    
+        // Fill light from the opposite side to soften contrast
+        const fillLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        fillLight.position.set(-5, 3, -5);
+        scene.add(fillLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    dirLight.position.set(5, 10, 7);
-    scene.add(dirLight);
+        // Add a sample object (Cube) as placeholder while the GLB loads
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x5a6d8f,
+            roughness: 0.4,
+            metalness: 0.2
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true;
+        cube.receiveShadow = true;
+        scene.add(cube);
 
-    // Add a sample object (Cube) as placeholder
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x5a6d8f,
-        roughness: 0.5,
-        metalness: 0.1
-    });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+        // Simple shadow-catching ground plane
+        const ground = new THREE.Mesh(
+            new THREE.PlaneGeometry(20, 20),
+            new THREE.ShadowMaterial({ opacity: 0.2 })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -1;
+        ground.receiveShadow = true;
+        scene.add(ground);
+    
+        // Load your GLTF model (replaces the placeholder cube when ready)
+        const loader = new GLTFLoader();
+        loader.load(
+            '../media/intersection complete.glb',
+            (gltf) => {
+                // Remove placeholder cube
+                scene.remove(cube);
+    
+                const model = gltf.scene;
+                scene.add(model);
 
-    // Optional: Load GLTF Model (commented out for now until a model is available)
-    /*
-    const loader = new THREE.GLTFLoader();
-    loader.load(
-        '../media/3d-models/your-model.glb',
-        function (gltf) {
-            scene.remove(cube); // Remove placeholder
-            scene.add(gltf.scene);
-            
-            const box = new THREE.Box3().setFromObject(gltf.scene);
-            const center = box.getCenter(new THREE.Vector3());
-            const size = box.getSize(new THREE.Vector3());
-            
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 2 / maxDim;
-            gltf.scene.scale.setScalar(scale);
-            gltf.scene.position.sub(center.multiplyScalar(scale));
-        },
-        undefined,
-        function (error) {
-            console.error('An error happened loading the model:', error);
-        }
-    );
-    */
+                // Enable shadows and sharpen textures on all meshes
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        if (child.material && child.material.map) {
+                            child.material.map.anisotropy = 8;
+                        }
+                    }
+                });
+    
+                // Center and scale model to fit roughly in a 2x2x2 box around the origin
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+    
+                const maxDim = Math.max(size.x, size.y, size.z) || 1;
+                const scale = 2 / maxDim;
+                model.scale.setScalar(scale);
+                model.position.sub(center.multiplyScalar(scale));
+    
+                // Reset camera target to center on the model
+                controls.target.set(0, 0, 0);
+                controls.update();
+            },
+            undefined,
+            (error) => {
+                console.error('An error happened loading the model:', error);
+            }
+        );
 
-    // Add AxesHelper to represent the Triad functionally in the scene
-    const axesHelper = new THREE.AxesHelper(3);
-    scene.add(axesHelper);
+
 
     // --- ViewCube Logic ---
     const viewCubeInner = document.querySelector('.cad-viewcube-inner');
